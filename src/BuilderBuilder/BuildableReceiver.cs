@@ -10,12 +10,9 @@ namespace BuilderBuilder
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if (syntaxNode is ClassDeclarationSyntax cds)
+            if (syntaxNode is ClassDeclarationSyntax cds && cds.AttributeLists.Count > 0)
             {
-                if(cds.AttributeLists.Count > 0)
-                {
-                    CandidateClasses.Add(cds);
-                }
+                CandidateClasses.Add(cds);
             }
         }
     }

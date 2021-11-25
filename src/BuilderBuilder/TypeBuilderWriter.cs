@@ -6,9 +6,7 @@ namespace BuilderBuilder
 {
     internal class TypeBuilderWriter
     {
-
-        private readonly StringBuilder _sb = new StringBuilder();
-
+        private readonly StringBuilder _sb = new();
 
         public string Write(ITypeSymbol type)
         {
@@ -22,9 +20,9 @@ namespace BuilderBuilder
                 _sb.AppendFormat("{0} class {1}Builder {{", "public", type.Name);
                 _sb.AppendLine();
 
-                AppendProperties(type, properties);
+                AppendProperties(properties);
                 _sb.AppendLine();
-                
+
                 AppendBuildFn(type, properties);
                 _sb.AppendLine();
 
@@ -40,11 +38,12 @@ namespace BuilderBuilder
             }
         }
 
-        private IPropertySymbol[] GetProperties(ITypeSymbol type)
+        private static IPropertySymbol[] GetProperties(ITypeSymbol type)
         {
-            var result = new List<IPropertySymbol>();
+            var members = type.GetMembers();
+            var result = new List<IPropertySymbol>(members.Length);
 
-            foreach (var member in type.GetMembers())
+            foreach (var member in members)
             {
                 if (member is IPropertySymbol propertySymbol)
                 {
@@ -52,10 +51,10 @@ namespace BuilderBuilder
                 }
             }
 
-            return result.ToArray(); ;
+            return result.ToArray();
         }
 
-        private void AppendProperties(ITypeSymbol type, IPropertySymbol[] props)
+        private void AppendProperties(IPropertySymbol[] props)
         {
             foreach (var prop in props)
             {
@@ -86,6 +85,5 @@ namespace BuilderBuilder
         }
 
         public void Reset() => _sb.Clear();
-
     }
 }
