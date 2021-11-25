@@ -1,14 +1,14 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Text;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
-using System.Text;
 
 namespace BuilderBuilder
 {
     [Generator]
     public class BuilderGenerator : ISourceGenerator
     {
-        private const string _attributeText = @"
+        private const string AttributeText = @"
 using System;
 
 namespace BuilderBuilder
@@ -18,27 +18,21 @@ namespace BuilderBuilder
 }
 ";
 
-        public void Initialize(InitializationContext context)
+        public void Initialize(GeneratorInitializationContext context)
         {
+            context.RegisterForPostInitialization(i => i.AddSource("BuildableAttribute", AttributeText));
             context.RegisterForSyntaxNotifications(() => new BuildableReceiver());
         }
 
-        public void Execute(SourceGeneratorContext context)
+        public void Execute(GeneratorExecutionContext context)
         {
-            var sourceText = SourceText.From(_attributeText, Encoding.UTF8);
-            context.AddSource("BuildableAttribute.cs", sourceText);
-
-            // we're going to create a new compilation that contains the attribute.
-            // TODO: we should allow source generators to provide source during initialize, so that this step isn't required.
-            CSharpParseOptions options = (CSharpParseOptions)((CSharpCompilation)context.Compilation).SyntaxTrees[0].Options;
-            Compilation compilation = context.Compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText(sourceText, options));
-
-            // The above copied from https://github.com/dotnet/roslyn-sdk/blob/master/samples/CSharp/SourceGenerators/SourceGeneratorSamples/AutoNotifyGenerator.cs
+            if (context.SyntaxContextReceiver is not BuildableReceiver receiver)
+                return;
+            Compilation compilation = context.Compilation;
 
             if (context.CancellationToken.IsCancellationRequested)
                 return;
 
-            var receiver = (BuildableReceiver)context.SyntaxReceiver!;
             var buildableSymbol = compilation.GetTypeByMetadataName("BuilderBuilder.BuildableAttribute");
 
             foreach (var @class in receiver.CandidateClasses)
@@ -49,19 +43,18 @@ namespace BuilderBuilder
                 var model = compilation.GetSemanticModel(@class.SyntaxTree, true);
                 var typeSymbol = model.GetDeclaredSymbol(@class);
 
-                var isBuildable = HasAttribute(typeSymbol, buildableSymbol);
-                if (isBuildable)
+                if (HasAttribute(typeSymbol, buildableSymbol))
                 {
                     Execute(context, typeSymbol);
                 }
             }
         }
 
-        private bool HasAttribute(INamedTypeSymbol typeSymbol, INamedTypeSymbol attributeSymbol)
+        private static bool HasAttribute(INamedTypeSymbol typeSymbol, INamedTypeSymbol attributeSymbol)
         {
             foreach (var attribute in typeSymbol.GetAttributes())
             {
-                if (attribute.AttributeClass?.Equals(attributeSymbol, SymbolEqualityComparer.Default) == true)
+                if (attribute.AttributeClass?.Equals(attributeSymbol, SymbolEqualityComparer.Default) ?? false)
                 {
                     return true;
                 }
@@ -69,7 +62,7 @@ namespace BuilderBuilder
             return false;
         }
 
-        private void Execute(SourceGeneratorContext context, INamedTypeSymbol typeSymbol)
+        private static void Execute(GeneratorExecutionContext context, INamedTypeSymbol typeSymbol)
         {
             var writer = new TypeBuilderWriter();
             var source = writer.Write(typeSymbol);
@@ -77,5 +70,4 @@ namespace BuilderBuilder
             context.AddSource($"{typeSymbol.Name}Builder.cs", sourceText);
         }
     }
-
 }
