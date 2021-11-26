@@ -65,8 +65,7 @@ namespace BuilderBuilder
         private static void Execute(GeneratorExecutionContext context, INamedTypeSymbol typeSymbol)
         {
             var source = TypeBuilderWriter.Write(typeSymbol);
-            var sourceText = SourceText.From(source, Encoding.UTF8);
-            context.AddSource($"{typeSymbol.Name}Builder.cs", sourceText);
+            context.AddSource($"{typeSymbol.Name}Builder.cs", source);
         }
     }
 }
