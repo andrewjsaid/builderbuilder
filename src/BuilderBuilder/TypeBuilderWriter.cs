@@ -15,8 +15,7 @@ namespace BuilderBuilder
 
             sb.AppendLine("using System;")
               .AppendLine()
-              .Append("namespace ").AppendLine(type.ContainingNamespace.Name)
-              .AppendLine(" {")
+              .Append("namespace ").Append(type.ContainingNamespace.Name).AppendLine(";")
               .Append("public class ").Append(type.Name).AppendLine("Builder {");
 
             foreach (var prop in properties)
@@ -27,7 +26,6 @@ namespace BuilderBuilder
 
             AppendBuildMethod(sb, type.Name, properties);
             sb.AppendLine()
-               .AppendLine("}")
                .AppendLine("}")
                .AppendLine();
 
@@ -49,9 +47,8 @@ namespace BuilderBuilder
         {
             const string Separator = ", ";
 
-            sb.Append("public ").Append(typeName).AppendLine(" Build()")
-               .AppendLine("{")
-               .Append("return new ").Append(typeName).AppendLine("(");
+            sb.Append("public ").Append(typeName).AppendLine(" Build() =>")
+               .Append("    new ").Append(typeName).Append("(");
 
             foreach (var prop in props)
             {
@@ -63,8 +60,7 @@ namespace BuilderBuilder
                 sb.Length -= Separator.Length;
             }
 
-            sb.AppendLine(");")
-              .AppendLine("}");
+            sb.AppendLine(");");
         }
     }
 }
