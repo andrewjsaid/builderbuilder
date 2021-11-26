@@ -2,18 +2,17 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace BuilderBuilder
-{
-    internal class BuildableReceiver : ISyntaxReceiver
-    {
-        public List<ClassDeclarationSyntax> CandidateClasses { get; } = new List<ClassDeclarationSyntax>();
+namespace BuilderBuilder;
 
-        public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
+internal class BuildableReceiver : ISyntaxReceiver
+{
+    public List<ClassDeclarationSyntax> CandidateClasses { get; } = new List<ClassDeclarationSyntax>();
+
+    public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
+    {
+        if (syntaxNode is ClassDeclarationSyntax cds && cds.AttributeLists.Count > 0)
         {
-            if (syntaxNode is ClassDeclarationSyntax cds && cds.AttributeLists.Count > 0)
-            {
-                CandidateClasses.Add(cds);
-            }
+            CandidateClasses.Add(cds);
         }
     }
 }

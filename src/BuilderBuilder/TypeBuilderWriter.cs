@@ -4,63 +4,56 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 
-namespace BuilderBuilder
+namespace BuilderBuilder;
+
+internal static class TypeBuilderWriter
 {
-    internal static class TypeBuilderWriter
+    public static string Write(ITypeSymbol type)
     {
-        public static string Write(ITypeSymbol type)
+        StringBuilder sb = new();
+        var properties = GetProperties(type);
+
+        sb.AppendLine("using System;")
+          .AppendLine()
+          .Append("namespace ").Append(type.ContainingNamespace.ToDisplayString()).AppendLine(";")
+          .Append("public class ").Append(type.Name).AppendLine("Builder {");
+
+        foreach (var prop in properties)
         {
-            StringBuilder sb = new();
-            var properties = GetProperties(type);
-
-            sb.AppendLine("using System;")
-              .AppendLine()
-              .Append("namespace ").Append(type.ContainingNamespace.Name).AppendLine(";")
-              .Append("public class ").Append(type.Name).AppendLine("Builder {");
-
-            foreach (var prop in properties)
-            {
-                sb.Append("public ").Append(prop.Type).Append(' ').Append(prop.Name).AppendLine(" { get; set; }");
-            }
-            sb.AppendLine();
-
-            AppendBuildMethod(sb, type.Name, properties);
-            sb.AppendLine()
-               .AppendLine("}")
-               .AppendLine();
-
-            return sb.ToString();
+            sb.Append("public ").Append(prop.Type).Append(' ').Append(prop.Name).AppendLine(" { get; set; }");
         }
+        sb.AppendLine();
 
-        private static IEnumerable<IPropertySymbol> GetProperties(ITypeSymbol type)
+        AppendBuildMethod(sb, type.Name, properties);
+        sb.AppendLine()
+           .AppendLine("}")
+           .AppendLine();
+
+        return sb.ToString();
+    }
+
+    private static IEnumerable<IPropertySymbol> GetProperties(ITypeSymbol type)
+    {
+        foreach (var member in type.GetMembers())
         {
-            foreach (var member in type.GetMembers())
-            {
-                if (member is IPropertySymbol propertySymbol)
-                {
-                    yield return propertySymbol;
-                }
-            }
+            if (member is IPropertySymbol propertySymbol)
+                yield return propertySymbol;
         }
+    }
 
-        private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props)
-        {
-            const string Separator = ", ";
+    private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props)
+    {
+        const string Separator = ", ";
 
-            sb.Append("public ").Append(typeName).AppendLine(" Build() =>")
-               .Append("    new ").Append(typeName).Append("(");
+        sb.Append("public ").Append(typeName).AppendLine(" Build() =>")
+           .Append("    new ").Append(typeName).Append("(");
 
-            foreach (var prop in props)
-            {
-                sb.Append(prop.Name).Append(Separator);
-            }
+        foreach (var prop in props)
+            sb.Append(prop.Name).Append(Separator);
 
-            if (props.Any())
-            {
-                sb.Length -= Separator.Length;
-            }
+        if (props.Any())
+            sb.Length -= Separator.Length;
 
-            sb.AppendLine(");");
-        }
+        sb.AppendLine(");");
     }
 }

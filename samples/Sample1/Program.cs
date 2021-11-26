@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace Sample1
+namespace Sample1;
+
+public static class Program
 {
-    public static class Program
+    public static void Main()
     {
-        public static void Main()
-        {
-            PersonBuilder builder = new();
-            builder.Name = "Andrew";
-            builder.Age = 29;
+        PersonBuilder builder = new();
+        builder.Name = "Andrew";
+        builder.Age = 29;
 
-            Person person = builder.Build();
+        Person person = builder.Build();
 
-            Console.WriteLine(person.Name);
-            Console.WriteLine(person.Age);
-        }
+        Console.WriteLine(person.Name);
+        Console.WriteLine(person.Age);
     }
 }

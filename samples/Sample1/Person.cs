@@ -1,17 +1,16 @@
 ﻿using BuilderBuilder;
 
-namespace Sample1
-{
-    [Buildable]
-    public class Person
-    {
-        public Person(string name, int age)
-        {
-            Name = name;
-            Age = age;
-        }
+namespace Sample1;
 
-        public string Name { get; }
-        public int Age { get; }
+[Buildable]
+public class Person
+{
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
     }
+
+    public string Name { get; }
+    public int Age { get; }
 }
