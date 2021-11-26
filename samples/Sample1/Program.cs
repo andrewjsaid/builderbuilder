@@ -6,7 +6,7 @@ namespace Sample1
     {
         public static void Main()
         {
-            PersonBuilder builder = new PersonBuilder();
+            PersonBuilder builder = new();
             builder.Name = "Andrew";
             builder.Age = 29;
 

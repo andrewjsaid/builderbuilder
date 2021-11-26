@@ -1,89 +1,70 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 
 namespace BuilderBuilder
 {
-    internal class TypeBuilderWriter
+    internal static class TypeBuilderWriter
     {
-        private readonly StringBuilder _sb = new();
-
-        public string Write(ITypeSymbol type)
+        public static string Write(ITypeSymbol type)
         {
-            try
+            StringBuilder sb = new();
+            var properties = GetProperties(type);
+
+            sb.AppendLine("using System;")
+              .AppendLine()
+              .Append("namespace ").AppendLine(type.ContainingNamespace.Name)
+              .AppendLine(" {")
+              .Append("public class ").Append(type.Name).AppendLine("Builder {");
+
+            foreach (var prop in properties)
             {
-                var properties = GetProperties(type);
-
-                _sb.AppendFormat("namespace {0} {{", type.ContainingNamespace.Name)
-                   .AppendLine();
-
-                _sb.AppendFormat("{0} class {1}Builder {{", "public", type.Name);
-                _sb.AppendLine();
-
-                AppendProperties(properties);
-                _sb.AppendLine();
-
-                AppendBuildFn(type, properties);
-                _sb.AppendLine();
-
-                _sb.AppendLine("}}");
-                _sb.AppendLine();
-
-                var result = _sb.ToString();
-                return result;
+                sb.Append("public ").Append(prop.Type).Append(' ').Append(prop.Name).AppendLine(" { get; set; }");
             }
-            finally
-            {
-                _sb.Clear();
-            }
+            sb.AppendLine();
+
+            AppendBuildMethod(sb, type.Name, properties);
+            sb.AppendLine()
+               .AppendLine("}")
+               .AppendLine("}")
+               .AppendLine();
+
+            return sb.ToString();
         }
 
-        private static IPropertySymbol[] GetProperties(ITypeSymbol type)
+        private static IEnumerable<IPropertySymbol> GetProperties(ITypeSymbol type)
         {
-            var members = type.GetMembers();
-            var result = new List<IPropertySymbol>(members.Length);
-
-            foreach (var member in members)
+            foreach (var member in type.GetMembers())
             {
                 if (member is IPropertySymbol propertySymbol)
                 {
-                    result.Add(propertySymbol);
+                    yield return propertySymbol;
                 }
             }
-
-            return result.ToArray();
         }
 
-        private void AppendProperties(IPropertySymbol[] props)
+        private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props)
         {
-            foreach (var prop in props)
-            {
-                _sb.AppendFormat("public {0} {1} {{ get; set; }}", prop.Type, prop.Name)
-                   .AppendLine();
-            }
-        }
+            const string Separator = ", ";
 
-        private void AppendBuildFn(ITypeSymbol type, IPropertySymbol[] props)
-        {
-            _sb.AppendFormat("public {0} Build()", type.Name)
+            sb.Append("public ").Append(typeName).AppendLine(" Build()")
                .AppendLine("{")
-               .AppendFormat("return new {0}(", type.Name)
-               .AppendLine();
+               .Append("return new ").Append(typeName).AppendLine("(");
 
             foreach (var prop in props)
             {
-                _sb.AppendFormat("{0}, ", prop.Name);
+                sb.Append(prop.Name).Append(Separator);
             }
 
-            if(props.Length > 0)
+            if (props.Any())
             {
-                _sb.Length -= ", ".Length;
+                sb.Length -= Separator.Length;
             }
 
-            _sb.AppendLine(");")
-               .AppendLine("}");
+            sb.AppendLine(");")
+              .AppendLine("}");
         }
-
-        public void Reset() => _sb.Clear();
     }
 }
