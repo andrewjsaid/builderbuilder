@@ -20,15 +20,17 @@ namespace BuilderBuilder
 
     public void Initialize(GeneratorInitializationContext context)
     {
-        context.RegisterForPostInitialization(i => i.AddSource("BuildableAttribute", AttributeText));
         context.RegisterForSyntaxNotifications(() => new BuildableReceiver());
     }
 
     public void Execute(GeneratorExecutionContext context)
     {
+        context.AddSource("BuildableAttribute.cs", AttributeText);
+        CSharpParseOptions options = (CSharpParseOptions)((CSharpCompilation)context.Compilation).SyntaxTrees[0].Options;
+        Compilation compilation = context.Compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText(AttributeText, options));
+
         if (context.SyntaxContextReceiver is not BuildableReceiver receiver)
             return;
-        Compilation compilation = context.Compilation;
 
         if (context.CancellationToken.IsCancellationRequested)
             return;
