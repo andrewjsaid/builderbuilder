@@ -14,5 +14,15 @@ public static class Program
 
         Console.WriteLine(person.Name);
         Console.WriteLine(person.Age);
+
+        AddressBuilder builder2 = new();
+        builder2.State = "NY";
+        builder2.Street = "100 Park Avenue";
+        builder2.City = "New York";
+        builder2.Zip = "10001";
+
+        Address address = builder2.Build();
+
+        Console.WriteLine(address);
     }
 }
