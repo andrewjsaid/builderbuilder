@@ -53,9 +53,7 @@ namespace BuilderBuilder
         foreach (var attribute in typeSymbol.GetAttributes())
         {
             if (attribute.AttributeClass?.Equals(attributeSymbol, SymbolEqualityComparer.Default) ?? false)
-            {
                 return true;
-            }
         }
         return false;
     }
