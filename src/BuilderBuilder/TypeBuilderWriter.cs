@@ -15,8 +15,12 @@ internal static class TypeBuilderWriter
 
         sb.AppendLine("using System;")
           .AppendLine()
-          .Append("namespace ").Append(type.ContainingNamespace.ToDisplayString()).AppendLine(";")
-          .Append("public class ").Append(type.Name).AppendLine("Builder {");
+          .Append("namespace ")
+          .Append(type.ContainingNamespace.ToDisplayString())
+          .AppendLine(";")
+          .Append("public static partial class ")
+          .Append(type.Name)
+          .AppendLine("Builder {");
 
         foreach (var prop in properties)
         {
@@ -45,8 +49,13 @@ internal static class TypeBuilderWriter
     {
         const string Separator = ", ";
 
-        sb.Append("public ").Append(typeName).AppendLine(" Build() =>")
-           .Append("    new ").Append(typeName).Append("(");
+        sb
+        .Append("public ")
+        .Append(typeName)
+        .AppendLine(" Build() =>")
+           .Append("    new ")
+           .Append(typeName)
+           .Append('(');
 
         foreach (var prop in props)
             sb.Append(prop.Name).Append(Separator);
