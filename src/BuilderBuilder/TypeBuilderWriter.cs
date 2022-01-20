@@ -49,13 +49,12 @@ internal static class TypeBuilderWriter
     {
         const string Separator = ", ";
 
-        sb
-        .Append("public ")
-        .Append(typeName)
-        .AppendLine(" Build() =>")
-           .Append("    new ")
-           .Append(typeName)
-           .Append('(');
+        sb.Append("public ")
+          .Append(typeName)
+          .AppendLine(" Build() =>")
+          .Append("    new ")
+          .Append(typeName)
+          .Append('(');
 
         foreach (var prop in props)
             sb.Append(prop.Name).Append(Separator);
