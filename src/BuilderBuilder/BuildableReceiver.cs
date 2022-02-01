@@ -10,7 +10,19 @@ internal class BuildableReceiver : ISyntaxReceiver
 
     public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
     {
-        if (syntaxNode is ClassDeclarationSyntax cds && cds.AttributeLists.Count > 0)
-            CandidateClasses.Add(cds);
+        if (syntaxNode is ClassDeclarationSyntax cds)
+        {
+            foreach (var attributeList in cds.AttributeLists)
+            {
+                foreach (var attribute in attributeList.Attributes)
+                {
+                    if (attribute.Name.ToString() == "BuilderBuilder.BuildableAttribute")
+                    {
+                        CandidateClasses.Add(cds);
+                        return;
+                    }
+                }
+            }
+        }
     }
 }
