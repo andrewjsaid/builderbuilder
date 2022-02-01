@@ -6,19 +6,19 @@ namespace Sample1
     [Buildable]
     public class Address
     {
-        public Address(string street, string city, string state, string zip)
+        public Address(string street, string city, string state, string zipCode)
         {
             Street = street;
             City = city;
             State = state;
-            Zip = zip;
+            ZipCode = zipCode;
         }
 
         public string Street { get; }
         public string City { get; }
         public string State { get; }
-        public string Zip { get; }
+        public string ZipCode { get; }
 
-        public override string ToString() => $"{Street}, {City}, {State} {Zip}";
+        public override string ToString() => $"{Street}, {City}, {State} {ZipCode}";
     }
 }

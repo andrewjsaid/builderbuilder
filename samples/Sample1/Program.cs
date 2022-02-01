@@ -19,7 +19,7 @@ public static class Program
         builder2.State = "NY";
         builder2.Street = "100 Park Avenue";
         builder2.City = "New York";
-        builder2.Zip = "10001";
+        builder2.ZipCode = "10001";
 
         Address address = builder2.Build();
 
