@@ -1,22 +1,28 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Text;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using System.Text;
+using System.Threading;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 
 namespace BuilderBuilder;
 
 [Generator]
-public class BuilderGenerator : ISourceGenerator
+public class BuilderGenerator : IIncrementalGenerator
 {
+    private const string BuildableAttribute = "BuilderBuilder.BuildableAttribute";
+
     private const string AttributeText = @"
 using System;
 
-namespace BuilderBuilder
-{
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public sealed class BuildableAttribute : Attribute { }
-}
+namespace BuilderBuilder;
+
+[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+public sealed class BuildableAttribute : Attribute { }
+
 ";
 
     private static readonly DiagnosticDescriptor ErrorGeneratingBuilderSource = new
@@ -39,36 +45,70 @@ namespace BuilderBuilder
         isEnabledByDefault: true
     );
 
-    public void Initialize(GeneratorInitializationContext context)
+    public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        context.RegisterForSyntaxNotifications(() => new BuildableReceiver());
+        context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
+            "BuildableAttribute.g.cs", SourceText.From(AttributeText, Encoding.UTF8)));
+
+        IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
+            .CreateSyntaxProvider(
+                predicate: static (s, _) => IsSyntaxTargetForGeneration(s),
+                transform: static (ctx, _) => GetSemanticTargetForGeneration(ctx))
+            .Where(static m => m is not null)!;
+
+        IncrementalValueProvider<(Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> incValueProvider = context.CompilationProvider.Combine(classDeclarations.Collect());
+        context.RegisterSourceOutput(incValueProvider,
+    static (spc, source) => Execute(source.Left, source.Right, spc));
     }
 
-    public void Execute(GeneratorExecutionContext context)
+    public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
+    => node is ClassDeclarationSyntax m && m.AttributeLists.Count > 0;
+
+    public static ClassDeclarationSyntax GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
     {
-        context.AddSource("BuildableAttribute.cs", AttributeText);
-        CSharpParseOptions options = (CSharpParseOptions)((CSharpCompilation)context.Compilation).SyntaxTrees[0].Options;
-        Compilation compilation = context.Compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText(AttributeText, options));
+        // we know the node is a cds thanks to IsSyntaxTargetForGeneration
+        var cds = (ClassDeclarationSyntax)context.Node;
 
-        if (context.SyntaxContextReceiver is not BuildableReceiver receiver)
+        // loop through all the attributes on the method
+        foreach (var attributeListSyntax in cds.AttributeLists)
+        {
+            foreach (var attributeSyntax in attributeListSyntax.Attributes)
+            {
+                INamedTypeSymbol attributeContainingTypeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol.ContainingType;
+
+                // Is the attribute the attribute we are interested in?
+                if (attributeContainingTypeSymbol.ToDisplayString() == BuildableAttribute)
+                    return cds;
+            }
+        }
+
+        // we didn't find the attribute we were looking for
+        return null;
+    }
+
+    public static void Execute(Compilation compilation, IEnumerable<ClassDeclarationSyntax> classes, SourceProductionContext context)
+    {
+        if (!(classes?.Any() ?? false))
+        {
+            // nothing to do yet
             return;
-
+        }
         var buildableSymbol = compilation.GetTypeByMetadataName("BuilderBuilder.BuildableAttribute");
 
-        foreach (var @class in receiver.CandidateClasses)
+        foreach (var @class in classes)
         {
             if (context.CancellationToken.IsCancellationRequested)
                 return;
 
             var model = compilation.GetSemanticModel(@class.SyntaxTree, true);
-            var typeSymbol = model.GetDeclaredSymbol(@class);
+            var typeSymbol = (INamedTypeSymbol)model.GetDeclaredSymbol(@class);
 
             if (HasAttribute(typeSymbol, buildableSymbol))
                 Execute(context, typeSymbol);
         }
     }
 
-    private bool HasAttribute(INamedTypeSymbol typeSymbol, INamedTypeSymbol attributeSymbol)
+    private static bool HasAttribute(INamedTypeSymbol typeSymbol, INamedTypeSymbol attributeSymbol)
     {
         foreach (var attribute in typeSymbol.GetAttributes())
         {
@@ -78,7 +118,7 @@ namespace BuilderBuilder
         return false;
     }
 
-    private static void Execute(GeneratorExecutionContext context, INamedTypeSymbol typeSymbol)
+    private static void Execute(SourceProductionContext context, INamedTypeSymbol typeSymbol)
     {
         try
         {
