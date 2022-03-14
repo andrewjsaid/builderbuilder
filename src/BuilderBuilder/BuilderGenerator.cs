@@ -63,9 +63,9 @@ public sealed class BuildableAttribute : Attribute { }
     }
 
     public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
-    => node is ClassDeclarationSyntax m && m.AttributeLists.Count > 0;
+    => node is ClassDeclarationSyntax {AttributeLists.Count: > 0 };
 
-    public static ClassDeclarationSyntax GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
+    public static ClassDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
     {
         // we know the node is a cds thanks to IsSyntaxTargetForGeneration
         var cds = (ClassDeclarationSyntax)context.Node;
@@ -75,7 +75,11 @@ public sealed class BuildableAttribute : Attribute { }
         {
             foreach (var attributeSyntax in attributeListSyntax.Attributes)
             {
-                INamedTypeSymbol attributeContainingTypeSymbol = context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol.ContainingType;
+
+                if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
+                    continue;
+
+                INamedTypeSymbol attributeContainingTypeSymbol = attributeSymbol.ContainingType;
 
                 // Is the attribute the attribute we are interested in?
                 if (attributeContainingTypeSymbol.ToDisplayString() == BuildableAttribute)
@@ -94,7 +98,7 @@ public sealed class BuildableAttribute : Attribute { }
             // nothing to do yet
             return;
         }
-        var buildableSymbol = compilation.GetTypeByMetadataName(BuildableAttribute);
+        var buildableSymbol = compilation.GetTypeByMetadataName(BuildableAttribute)!;
 
         foreach (var @class in classes)
         {
@@ -102,7 +106,8 @@ public sealed class BuildableAttribute : Attribute { }
                 return;
 
             var model = compilation.GetSemanticModel(@class.SyntaxTree, true);
-            var typeSymbol = (INamedTypeSymbol)model.GetDeclaredSymbol(@class);
+            if (model.GetDeclaredSymbol(@class) is not INamedTypeSymbol typeSymbol)
+                continue;
 
             if (HasAttribute(typeSymbol, buildableSymbol))
                 Execute(context, typeSymbol);
