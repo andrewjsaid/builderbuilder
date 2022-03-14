@@ -28,8 +28,8 @@ public sealed class BuildableAttribute : Attribute { }
     private static readonly DiagnosticDescriptor ErrorGeneratingBuilderSource = new
     (
         id: "BB001",
-        title: "An error has occured while generating source for builder",
-        messageFormat: "An error has occured while generating source for builder with name `{0}`: {1}",
+        title: "An error has occurred while generating source for builder",
+        messageFormat: "An error has ocurred while generating source for builder with name `{0}`: {1}",
         category: "Compilation",
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true
