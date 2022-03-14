@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.CodeAnalysis;
 
 namespace BuilderBuilder;
 
@@ -12,14 +11,15 @@ internal static class TypeBuilderWriter
     {
         StringBuilder sb = new();
         var properties = GetProperties(type);
+        var typeName = type.Name;
 
         sb.AppendLine("using System;")
           .AppendLine()
           .Append("namespace ")
           .Append(type.ContainingNamespace.ToDisplayString())
           .AppendLine(";")
-          .Append("public partial class ")
-          .Append(type.Name)
+          .Append("public class ")
+          .Append(typeName)
           .AppendLine("Builder {");
 
         foreach (var prop in properties)
@@ -28,7 +28,7 @@ internal static class TypeBuilderWriter
         }
         sb.AppendLine();
 
-        AppendBuildMethod(sb, type.Name, properties);
+        AppendBuildMethod(sb, typeName, properties);
         sb.AppendLine()
            .AppendLine("}")
            .AppendLine();
