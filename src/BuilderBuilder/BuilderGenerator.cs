@@ -75,7 +75,6 @@ public sealed class BuildableAttribute : Attribute { }
         {
             foreach (var attributeSyntax in attributeListSyntax.Attributes)
             {
-
                 if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
                     continue;
 
@@ -87,7 +86,6 @@ public sealed class BuildableAttribute : Attribute { }
             }
         }
 
-        // we didn't find the attribute we were looking for
         return null;
     }
 
