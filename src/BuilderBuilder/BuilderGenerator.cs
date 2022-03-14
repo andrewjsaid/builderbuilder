@@ -93,7 +93,7 @@ public sealed class BuildableAttribute : Attribute { }
             // nothing to do yet
             return;
         }
-        var buildableSymbol = compilation.GetTypeByMetadataName("BuilderBuilder.BuildableAttribute");
+        var buildableSymbol = compilation.GetTypeByMetadataName(BuildableAttribute);
 
         foreach (var @class in classes)
         {
