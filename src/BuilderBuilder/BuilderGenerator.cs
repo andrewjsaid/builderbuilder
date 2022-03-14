@@ -45,6 +45,7 @@ public sealed class BuildableAttribute : Attribute { }
         isEnabledByDefault: true
     );
 
+    // See https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/.
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
