@@ -46,15 +46,16 @@ public static class TestHelper
         {
             var tempTitle = Path.GetFileName(temp);
             var targetTitle = Path.GetFileName(target);
-            return $"/u /wl /e \"{target}\" \"{temp}\" /dl \"{targetTitle}\" /dr \"{tempTitle}\"";
+            return $"/u /ignoreeol /wl /e \"{target}\" \"{temp}\" /dl \"{targetTitle}\" /dr \"{tempTitle}\"";
         }
 
         static string TargetRightArguments(string temp, string target)
         {
             var tempTitle = Path.GetFileName(temp);
             var targetTitle = Path.GetFileName(target);
-            return $"/u /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
+            return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
         }
+
         var _ = DiffTools.AddTool(
             name: "MyTool",
             autoRefresh: true,
@@ -118,5 +119,5 @@ public static class TestHelper
                 TargetRightArguments,
                 @"D:\Apps\WinMerge\WinMergeU.exe")
         );
-    }        // See
+    }
 }
