@@ -18,6 +18,7 @@ internal static class TypeBuilderWriter
           .Append("namespace ")
           .Append(type.ContainingNamespace.ToDisplayString())
           .AppendLine(";")
+          .AppendLine()
           .Append("public class ")
           .Append(typeName)
           .AppendLine("Builder")

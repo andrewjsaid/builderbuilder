@@ -2,6 +2,7 @@
 using System;
 
 namespace <global namespace>;
+
 public class PointBuilder
 {
     public int X { get; set; }
@@ -10,3 +11,4 @@ public class PointBuilder
     public Point Build() =>
     new Point(X, Y);
 }
+
