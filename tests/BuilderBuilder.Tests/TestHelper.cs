@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using DiffEngine;
@@ -14,10 +15,17 @@ public static class TestHelper
         // Parse the provided string into a C# syntax tree
         SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(source);
 
+        // To avoid issue getting semantic model
+        IEnumerable<PortableExecutableReference> references = new[]
+{
+            MetadataReference.CreateFromFile(typeof(object).Assembly.Location)
+        };
+
         // Create a Roslyn compilation for the syntax tree.
         CSharpCompilation compilation = CSharpCompilation.Create(
             assemblyName: "Tests",
-            syntaxTrees: new[] { syntaxTree });
+            syntaxTrees: new[] { syntaxTree },
+            references: references);
 
         var generator = new BuilderGenerator();
 
