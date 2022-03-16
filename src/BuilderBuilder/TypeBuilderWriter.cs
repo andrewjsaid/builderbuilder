@@ -20,20 +20,30 @@ internal static class TypeBuilderWriter
           .AppendLine(";")
           .Append("public class ")
           .Append(typeName)
-          .AppendLine("Builder {");
+          .AppendLine("Builder")
+          .AppendLine("{");
 
         foreach (var prop in properties)
         {
+            Indent(sb, 4);
             sb.Append("public ").Append(prop.Type).Append(' ').Append(prop.Name).AppendLine(" { get; set; }");
         }
         sb.AppendLine();
 
+        Indent(sb, 4);
         AppendBuildMethod(sb, typeName, properties);
-        sb.AppendLine()
-           .AppendLine("}")
+        sb.AppendLine("}")
            .AppendLine();
 
         return sb.ToString();
+    }
+
+    private static void Indent(StringBuilder sb, uint spaces)
+    {
+        for (int i = 0; i < spaces; i++)
+        {
+            sb.Append(' ');
+        }
     }
 
     private static IEnumerable<IPropertySymbol> GetProperties(ITypeSymbol type)
