@@ -1,7 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.CodeAnalysis;
 
 namespace BuilderBuilder;
 
@@ -31,8 +31,7 @@ internal static class TypeBuilderWriter
         }
         sb.AppendLine();
 
-        Indent(sb, 4);
-        AppendBuildMethod(sb, typeName, properties);
+        AppendBuildMethod(sb, typeName, properties, 4);
         sb.AppendLine("}")
            .AppendLine();
 
@@ -56,16 +55,18 @@ internal static class TypeBuilderWriter
         }
     }
 
-    private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props)
+    private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props, uint spaces)
     {
         const string Separator = ", ";
 
+        Indent(sb, spaces);
         sb.Append("public ")
           .Append(typeName)
-          .AppendLine(" Build() =>")
-          .Append("    new ")
-          .Append(typeName)
-          .Append('(');
+          .AppendLine(" Build() =>");
+        Indent(sb, spaces * 2);
+        sb.Append("new ")
+        .Append(typeName)
+        .Append('(');
 
         foreach (var prop in props)
             sb.Append(prop.Name).Append(Separator);

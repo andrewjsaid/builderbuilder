@@ -9,6 +9,6 @@ public class PointBuilder
     public int Y { get; set; }
 
     public Point Build() =>
-    new Point(X, Y);
+        new Point(X, Y);
 }
 
