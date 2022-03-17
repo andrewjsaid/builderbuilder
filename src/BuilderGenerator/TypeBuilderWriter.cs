@@ -7,11 +7,10 @@ namespace BuilderGenerator;
 
 internal static class TypeBuilderWriter
 {
-    public static string Write(ITypeSymbol type)
+    public static string Write(INamedTypeSymbol type)
     {
         StringBuilder sb = new();
         var properties = GetProperties(type);
-        var typeName = type.Name;
 
         sb.AppendLine("using System;")
           .AppendLine()
@@ -20,8 +19,7 @@ internal static class TypeBuilderWriter
           .AppendLine(";")
           .AppendLine()
           .Append("public class ")
-          .Append(typeName)
-          .AppendLine("Builder")
+          .Append(GetTypeName(type, true))
           .AppendLine("{");
 
         foreach (var prop in properties)
@@ -31,11 +29,42 @@ internal static class TypeBuilderWriter
         }
         sb.AppendLine();
 
-        AppendBuildMethod(sb, typeName, properties, 4);
+        AppendBuildMethod(sb, GetTypeName(type, false), properties, 4);
         sb.AppendLine("}")
            .AppendLine();
 
         return sb.ToString();
+    }
+
+    private static string GetTypeName(INamedTypeSymbol type, bool isBuilder)
+    {
+        var typeName = type.Name;
+
+        if (type.IsGenericType && !type.IsUnboundGenericType)
+        {
+            var parts = type.ToDisplayParts();
+            var length = parts.Length;
+            if (length > 0)
+            {
+                var vals = new List<string>(length);
+                bool capture = false;
+                for (var i = 0; i < length; i++)
+                {
+                    var val = parts[i].ToString();
+                    if (val == typeName && i + 2 < length && parts[i + 1].ToString() == "<")
+                    {
+                        capture = true;
+                        if (isBuilder)
+                            val += "Builder";
+                    }
+                    if (capture)
+                        vals.Add(val);
+                }
+                return string.Concat(vals);
+            }
+        }
+
+        return isBuilder ? typeName + "Builder" : typeName;
     }
 
     private static void Indent(StringBuilder sb, uint spaces)
@@ -46,7 +75,7 @@ internal static class TypeBuilderWriter
         }
     }
 
-    private static IEnumerable<IPropertySymbol> GetProperties(ITypeSymbol type)
+    private static IEnumerable<IPropertySymbol> GetProperties(INamedTypeSymbol type)
     {
         foreach (var member in type.GetMembers())
         {
