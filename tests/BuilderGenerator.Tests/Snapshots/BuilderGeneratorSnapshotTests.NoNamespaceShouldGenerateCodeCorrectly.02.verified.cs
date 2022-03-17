@@ -3,8 +3,7 @@ using System;
 
 namespace <global namespace>;
 
-public class PointBuilder
-{
+public class PointBuilder{
     public int X { get; set; }
     public int Y { get; set; }
 
