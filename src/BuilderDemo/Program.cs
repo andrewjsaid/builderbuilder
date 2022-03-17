@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sample1;
+namespace BuilderDemo;
 
 public static class Program
 {

@@ -1,24 +1,23 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 
-namespace BuilderBuilder;
+namespace BuilderGenerator;
 
 [Generator]
 public class BuilderGenerator : IIncrementalGenerator
 {
-    private const string BuildableAttribute = "BuilderBuilder.BuildableAttribute";
+    private const string BuildableAttribute = "BuilderGenerator.BuildableAttribute";
 
     private const string AttributeText = @"
 using System;
 
-namespace BuilderBuilder;
+namespace BuilderGenerator;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 public sealed class BuildableAttribute : Attribute { }

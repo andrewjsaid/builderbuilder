@@ -1,6 +1,6 @@
-﻿using BuilderBuilder;
+﻿using BuilderGenerator;
 
-namespace Sample1;
+namespace BuilderDemo;
 
 [Buildable]
 public class Person

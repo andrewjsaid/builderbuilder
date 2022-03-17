@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 
-namespace BuilderBuilder;
+namespace BuilderGenerator;
 
 internal static class TypeBuilderWriter
 {

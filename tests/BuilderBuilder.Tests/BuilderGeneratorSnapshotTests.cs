@@ -12,7 +12,7 @@ public class BuilderGeneratorSnapshotTests
     {
         // The source code to test
         const string source = @"
-using BuilderBuilder;
+using BuilderGenerator;
 
 [Buildable]
 public class Point
