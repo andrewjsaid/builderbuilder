@@ -2,7 +2,7 @@
 
 using System;
 
-namespace BuilderBuilder;
+namespace BuilderGenerator;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 public sealed class BuildableAttribute : Attribute { }
