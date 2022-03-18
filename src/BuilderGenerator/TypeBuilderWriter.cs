@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using static BuilderGenerator.BuilderGeneratorHelper;
 
 namespace BuilderGenerator;
 
@@ -12,7 +13,8 @@ internal static class TypeBuilderWriter
         StringBuilder sb = new();
         var properties = GetProperties(type);
 
-        sb.AppendLine("using System;")
+        _ = sb.AppendLine(Header)
+          .AppendLine("using System;")
           .AppendLine()
           .Append("namespace ")
           .Append(type.ContainingNamespace.ToDisplayString())

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using static BuilderGenerator.BuilderGeneratorHelper;
 
 namespace BuilderGenerator;
 
@@ -13,16 +14,6 @@ namespace BuilderGenerator;
 public class BuilderGenerator : IIncrementalGenerator
 {
     private const string BuildableAttribute = "BuilderGenerator.BuildableAttribute";
-
-    private const string AttributeText = @"
-using System;
-
-namespace BuilderGenerator;
-
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-public sealed class BuildableAttribute : Attribute { }
-
-";
 
     private static readonly DiagnosticDescriptor ErrorGeneratingBuilderSource = new
     (
@@ -48,7 +39,7 @@ public sealed class BuildableAttribute : Attribute { }
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
-            "BuildableAttribute.g.cs", SourceText.From(AttributeText, Encoding.UTF8)));
+            "BuildableAttribute.g.cs", SourceText.From($"{Header}{AttributeText}", Encoding.UTF8)));
 
         IncrementalValuesProvider<ClassDeclarationSyntax> classDeclarations = context.SyntaxProvider
             .CreateSyntaxProvider(
