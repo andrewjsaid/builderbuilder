@@ -20,7 +20,6 @@ public static class Program
         builder2.Street = "100 Park Avenue";
         builder2.City = "New York";
         builder2.ZipCode = "10001";
-
         Address address = builder2.Build();
 
         Console.WriteLine(address);
@@ -32,6 +31,5 @@ public static class Program
         builder3.Y = "A";
         var foo = builder3.Build();
         Console.WriteLine(foo);
-
     }
 }
