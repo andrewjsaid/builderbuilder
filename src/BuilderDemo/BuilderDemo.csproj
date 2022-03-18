@@ -3,10 +3,16 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<LangVersion>10.0</LangVersion>
+		<!-- https://andrewlock.net/creating-a-source-generator-part-6-saving-source-generator-output-in-source-control/#controlling-the-output-location -->
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
-		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)\GeneratedFiles</CompilerGeneratedFilesOutputPath>
+		<!--$(BaseIntermediateOutputPath)/GeneratedFiles does not work.-->
+		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BuilderGenerator\BuilderGenerator.csproj" OutputItemType="Analyzer" />
+	</ItemGroup>
+	<ItemGroup>
+		<!-- Exclude the output of source generators from the compilation -->
+		<Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs" />
 	</ItemGroup>
 </Project>
