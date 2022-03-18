@@ -8,10 +8,14 @@ namespace BuilderGenerator;
 
 internal static class TypeBuilderWriter
 {
+    private static readonly string _toolName = typeof(BuilderGenerator).Assembly.GetName().Name;
+
     public static string Write(INamedTypeSymbol type)
     {
         StringBuilder sb = new();
         var properties = GetProperties(type);
+
+        const string version = "v1.0.0.0";
 
         _ = sb.AppendLine(Header)
           .AppendLine("using System;")
@@ -20,6 +24,12 @@ internal static class TypeBuilderWriter
           .Append(type.ContainingNamespace.ToDisplayString())
           .AppendLine(";")
           .AppendLine()
+          // See https://github.com/dotnet/runtime/issues/64541.
+          .Append("[System.CodeDom.Compiler.GeneratedCode(\"")
+          .Append(_toolName)
+          .Append("\", \"")
+          .Append(version)
+          .AppendLine("\")]")
           .Append("public class ")
           .Append(GetTypeName(type, true))
           .AppendLine("{");
