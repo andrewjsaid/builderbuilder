@@ -62,7 +62,7 @@ public sealed class BuildableAttribute : Attribute { }
     }
 
     public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
-    => node is ClassDeclarationSyntax {AttributeLists.Count: > 0 };
+    => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
 
     public static ClassDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
     {
@@ -129,12 +129,15 @@ public sealed class BuildableAttribute : Attribute { }
             var sourceText = SourceText.From(source, Encoding.UTF8);
             context.ReportDiagnostic(Diagnostic.Create(SuccessfullyGeneratedBuilderSource, Location.None, typeSymbol.Name));
             string name = typeSymbol.Name;
-            var idx = name.IndexOf('<');
-            if (idx > -1)
+            if (typeSymbol.IsGenericType)
             {
-                name = name.Substring(0, idx);
+                var idx = name.IndexOf('<');
+                if (idx > -1)
+                {
+                    name = name.Substring(0, idx);
+                }
             }
-            context.AddSource($"{name}Builder.cs", sourceText);
+            context.AddSource($"{name}Builder.g.cs", sourceText);
         }
         catch (Exception ex)
         {
