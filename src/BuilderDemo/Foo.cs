@@ -25,5 +25,7 @@ public class Foo<T> :IEquatable<Foo<T>>
         return X == other.X && Equals(Y, other.Y);
     }
 
+    public override int GetHashCode() => HashCode.Combine(X, Y);
+
     public override string ToString() => $"Foo{{X = {X}, Y = {Y}}}";
 }
