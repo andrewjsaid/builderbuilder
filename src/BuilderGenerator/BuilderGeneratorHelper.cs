@@ -17,13 +17,14 @@ internal static class BuilderGeneratorHelper
 //------------------------------------------------------------------------------
 ";
 
+    // This won't work if users have [InternalsVisibleTo] attributes and are using the source generator in multiple projects.
     internal const string AttributeText = @"
 using System;
 
 namespace BuilderGenerator;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-public sealed class BuildableAttribute : Attribute { }
+internal sealed class BuildableAttribute : Attribute { }
 
 ";
 }
