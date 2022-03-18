@@ -24,5 +24,12 @@ public static class Program
         Address address = builder2.Build();
 
         Console.WriteLine(address);
+
+        // TODO: Figure out later.
+
+        //FooBuilder<string> builder3 = new();
+        //builder3.X = 3;
+        //builder3.Y = "A";
+        //var foo = builder3.Build();
     }
 }
