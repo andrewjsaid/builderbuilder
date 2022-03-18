@@ -27,9 +27,11 @@ public static class Program
 
         // TODO: Figure out later.
 
-        //FooBuilder<string> builder3 = new();
-        //builder3.X = 3;
-        //builder3.Y = "A";
-        //var foo = builder3.Build();
+        FooBuilder<string> builder3 = new();
+        builder3.X = 3;
+        builder3.Y = "A";
+        var foo = builder3.Build();
+        Console.WriteLine(foo);
+
     }
 }
