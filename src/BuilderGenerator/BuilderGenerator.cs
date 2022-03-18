@@ -128,7 +128,13 @@ public sealed class BuildableAttribute : Attribute { }
             var source = TypeBuilderWriter.Write(typeSymbol);
             var sourceText = SourceText.From(source, Encoding.UTF8);
             context.ReportDiagnostic(Diagnostic.Create(SuccessfullyGeneratedBuilderSource, Location.None, typeSymbol.Name));
-            context.AddSource($"{typeSymbol.Name}Builder.cs", sourceText);
+            string name = typeSymbol.Name;
+            var idx = name.IndexOf('<');
+            if (idx > -1)
+            {
+                name = name.Substring(0, idx);
+            }
+            context.AddSource($"{name}Builder.cs", sourceText);
         }
         catch (Exception ex)
         {

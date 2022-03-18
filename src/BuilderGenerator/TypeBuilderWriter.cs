@@ -51,7 +51,7 @@ internal static class TypeBuilderWriter
                 for (var i = 0; i < length; i++)
                 {
                     var val = parts[i].ToString();
-                    if (val == typeName && i + 2 < length && parts[i + 1].ToString() == "<")
+                    if (!capture && val == typeName && i + 2 < length && parts[i + 1].ToString() == "<")
                     {
                         capture = true;
                         if (isBuilder)
