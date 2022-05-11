@@ -30,7 +30,7 @@ public static class ModuleInitializer
             return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
         }
 
-        var _ = DiffTools.AddTool(
+        DiffTools.AddTool(
             name: "MyTool",
             autoRefresh: true,
             isMdi: false,

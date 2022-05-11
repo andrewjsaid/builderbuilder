@@ -4,7 +4,7 @@ using System;
 namespace BuilderDemo;
 
 [Buildable]
-public class Foo<T> :IEquatable<Foo<T>>
+public sealed class Foo<T> :IEquatable<Foo<T>>
 {
     public Foo(int x, T y)
     {
