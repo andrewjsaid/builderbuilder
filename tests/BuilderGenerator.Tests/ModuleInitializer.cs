@@ -30,6 +30,10 @@ public static class ModuleInitializer
             return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
         }
 
+        var launchArguments = new LaunchArguments(
+            Left: TargetLeftArguments,
+            Right: TargetRightArguments);
+
         DiffTools.AddTool(
             name: "MyTool",
             autoRefresh: true,
@@ -88,10 +92,10 @@ public static class ModuleInitializer
                 "xbm",
                 "xpm"
             },
-            windows: new(
-                TargetLeftArguments,
-                TargetRightArguments,
-                @"D:\Apps\WinMerge\WinMergeU.exe")
-        );
+            osSupport: new(
+                Windows: new(
+                    @"D:\Apps\WinMerge\WinMergeU.exe",
+                    launchArguments)
+        ));
     }
 }
