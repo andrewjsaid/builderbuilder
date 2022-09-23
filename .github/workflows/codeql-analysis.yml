@@ -1,15 +1,23 @@
+# https://docs.microsoft.com/en-us/dotnet/devops/dotnet-secure-github-action
+
 name: "CodeQL"
 
 on:
   push:
   pull_request:
-  schedule:
-    - cron: '15 13 * * 4'
+    # The branches below must be a subset of the branches above
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.txt"
+
+permissions:
+  contents: read
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       actions: read
       contents: read
@@ -18,27 +26,34 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp' ]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
-        # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
+        language: ["csharp"]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+      - name: "Checkout head"
+        run: git checkout HEAD^2
+        if: ${{ github.event_name == 'pull_request' }}
 
-        
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        id: init_codeql
+        uses: github/codeql-action/init@v2.1.22
+        with:
+          languages: ${{ matrix.language }}
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2.1.0
+        with:
+          dotnet-version: "6.x"
+
+      # https://github.com/github/codeql-action/issues/757#issuecomment-978693262
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2.1.22
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2.1.22
