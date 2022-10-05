@@ -48,8 +48,8 @@ jobs:
           dotnet-version: "6.x"
 
       # https://github.com/github/codeql-action/issues/757#issuecomment-978693262
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2.1.25
+      - name: Build code
+        run: dotnet build
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2.1.25
+        uses: github/codeql-action/analyze@v2.1.26
