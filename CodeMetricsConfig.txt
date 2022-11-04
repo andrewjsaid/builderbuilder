@@ -1,0 +1,4 @@
+CA1501: 4
+
+CA1502(Method): 25
+CA1502(Property): 5
