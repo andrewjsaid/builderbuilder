@@ -1,10 +1,11 @@
 ﻿using BuilderGenerator;
+
 using System;
 
 namespace BuilderDemo;
 
 [Buildable]
-public sealed class Foo<T> :IEquatable<Foo<T>>
+public sealed class Foo<T> : IEquatable<Foo<T>>
 {
     public Foo(int x, T y)
     {
@@ -15,15 +16,9 @@ public sealed class Foo<T> :IEquatable<Foo<T>>
     public int X { get; }
     public T Y { get; }
 
-    public override bool Equals(object obj) => Equals(obj as Foo<T>);
+    public override bool Equals(object? obj) => obj is not null && obj is Foo<T> other && Equals(other);
 
-    public bool Equals(Foo<T> other)
-    {
-        if (other is null)
-            return false;
-
-        return X == other.X && Equals(Y, other.Y);
-    }
+    public bool Equals(Foo<T>? other) => other is not null && X == other.X && Equals(Y, other.Y);
 
     public override int GetHashCode() => HashCode.Combine(X, Y);
 
