@@ -275,13 +275,6 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 
-# Visual Studio 6 build log
-*.plg
-
-# Visual Studio 6 workspace options file
-*.opt
-
-
 # Paket dependency manager
 .paket/paket.exe
 paket-files/
@@ -314,10 +307,6 @@ OpenCover/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
-
-# Backup folder for Package Reference Convert tool in Visual Studio 2017
-MigrationBackup/
-
 
 .vscode/*
 !.vscode/tasks.json

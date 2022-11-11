@@ -7,6 +7,9 @@
 *.sln      text eol=crlf
 *.csproj   text eol=crlf
 
+# Docker
+Dockerfile text
+
 # Documentation
 *.markdown text diff=markdown linguist-detectable
 *.md       text diff=markdown linguist-detectable
