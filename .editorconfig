@@ -188,6 +188,8 @@ dotnet_diagnostic.IDE0005.severity = warning
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/formatting-rules
 #############################
 dotnet_diagnostic.IDE0055.severity = suggestion
+# https://github.com/dotnet/roslyn/issues/41640#issuecomment-1314950048
+dotnet_diagnostic.CS8019.severity = suggestion
 
 # Organize usings
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/formatting-rules#organize-using-directives
