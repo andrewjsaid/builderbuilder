@@ -1,14 +1,14 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/BuilderBuilder.sln",
-                "/property:GenerateFullPaths=true",
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/BuilderBuilder.sln",
+        "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary",
         "-c",
         "${input:config}"
@@ -18,6 +18,26 @@
         "reveal": "silent"
       },
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build2",
+      "command": "dotnet",
+      "type": "process",
+      "suppressTaskName": true,
+      "args": [
+        "build",
+        "${workspaceFolder}/BuilderBuilder.sln",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary",
+        "-c",
+        "${input:rememberConfig}"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "hide": true
     },
     {
       "label": "clean",
@@ -40,6 +60,14 @@
         "Release"
       ],
       "description": "Build configuration"
+    },
+    {
+      "id": "rememberConfig",
+      "type": "command",
+      "command": "extension.commandvariable.remember",
+      "args": {
+        "key": "buildConfig"
+      }
     }
   ]
 }
