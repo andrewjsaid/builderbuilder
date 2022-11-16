@@ -1,9 +1,10 @@
 using DiffEngine;
 using System.IO;
 using System.Runtime.CompilerServices;
+
 using VerifyTests;
 
-namespace BuilderBuilder.Tests;
+namespace BuilderGenerator.Tests;
 
 public static class ModuleInitializer
 {
@@ -14,6 +15,7 @@ public static class ModuleInitializer
 
         SetupDiffTool();
     }
+
     private static void SetupDiffTool()
     {
         static string TargetLeftArguments(string temp, string target)

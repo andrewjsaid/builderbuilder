@@ -1,10 +1,12 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using VerifyNUnit;
 
-namespace BuilderBuilder.Tests;
+namespace BuilderGenerator.Tests;
 
 public static class TestHelper
 {
@@ -20,7 +22,7 @@ public static class TestHelper
         };
 
         // Create a Roslyn compilation for the syntax tree.
-        CSharpCompilation compilation = CSharpCompilation.Create(
+        var compilation = CSharpCompilation.Create(
             assemblyName: "Tests",
             syntaxTrees: new[] { syntaxTree },
             references: references);

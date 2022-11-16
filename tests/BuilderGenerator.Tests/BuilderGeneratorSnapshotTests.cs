@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
-using VerifyNUnit;
-
-namespace BuilderBuilder.Tests;
+namespace BuilderGenerator.Tests;
 
 [TestFixture]
 public class BuilderGeneratorSnapshotTests
@@ -10,8 +8,8 @@ public class BuilderGeneratorSnapshotTests
     [Test]
     public Task NoNamespaceShouldGenerateCodeCorrectly()
     {
-        // The source code to test
-        const string source = @"
+        // The Source code to test
+        const string Source = @"
 using BuilderGenerator;
 
 [Buildable]
@@ -27,13 +25,13 @@ public class Point
     public int Y { get; }
 }";
 
-        return TestHelper.Verify(source);
+        return TestHelper.Verify(Source);
     }
 
     [Test]
     public Task GenericClassShouldGenerateCodeCorrectly()
     {
-        // The source code to test
+        // The Source code to test
         const string source = @"
 using BuilderGenerator;
 
