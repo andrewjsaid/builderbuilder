@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace BuilderDemo;
 
@@ -6,6 +7,11 @@ public static class Program
 {
     public static void Main()
     {
+        // https://stackoverflow.com/a/60545278/781045
+        AssemblyConfigurationAttribute? assemblyConfigurationAttribute = typeof(Program).Assembly.GetCustomAttribute<AssemblyConfigurationAttribute>();
+        if (assemblyConfigurationAttribute is not null)
+            Console.WriteLine($"Build Configuration is {assemblyConfigurationAttribute.Configuration}.");
+
         PersonBuilder builder = new()
         {
             Name = "Andrew",
@@ -33,7 +39,7 @@ public static class Program
             X = 3,
             Y = "A"
         };
-        var foo = builder3.Build();
+        Foo<string> foo = builder3.Build();
         Console.WriteLine(foo);
     }
 }
