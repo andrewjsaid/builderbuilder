@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+
 using NUnit.Framework;
 namespace BuilderGenerator.Tests;
 
@@ -32,7 +33,7 @@ public class Point
     public Task GenericClassShouldGenerateCodeCorrectly()
     {
         // The Source code to test
-        const string source = @"
+        const string Source = @"
 using BuilderGenerator;
 
 namespace Generics.Test;
@@ -50,6 +51,6 @@ public class Foo<T>
     public T Y { get; }
 }";
 
-        return TestHelper.Verify(source);
+        return TestHelper.Verify(Source);
     }
 }

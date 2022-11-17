@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis;
+
 using static BuilderGenerator.BuilderGeneratorHelper;
 
 namespace BuilderGenerator;
@@ -25,7 +26,7 @@ internal static class TypeBuilderWriter
             .Append(type.ContainingNamespace.ToDisplayString())
             .AppendLine(";")
             .AppendLine()
-          // See https://github.com/dotnet/runtime/issues/64541.
+            // See https://github.com/dotnet/runtime/issues/64541.
             .Append("[System.CodeDom.Compiler.GeneratedCode(\"")
             .Append(s_toolName)
             .Append("\", \"")
@@ -55,12 +56,12 @@ internal static class TypeBuilderWriter
 
         if (type.IsGenericType && !type.IsUnboundGenericType)
         {
-            var parts = type.ToDisplayParts();
+            System.Collections.Immutable.ImmutableArray<SymbolDisplayPart> parts = type.ToDisplayParts();
             var length = parts.Length;
             if (length > 0)
             {
                 var vals = new List<string>(length);
-                bool capture = false;
+                var capture = false;
                 for (var i = 0; i < length; i++)
                 {
                     var val = parts[i].ToString();
@@ -82,7 +83,7 @@ internal static class TypeBuilderWriter
 
     private static void Indent(StringBuilder sb, uint spaces)
     {
-        for (int i = 0; i < spaces; i++)
+        for (var i = 0; i < spaces; i++)
         {
             sb.Append(' ');
         }
