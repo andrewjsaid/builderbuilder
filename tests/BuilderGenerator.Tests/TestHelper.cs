@@ -27,7 +27,7 @@ public static class TestHelper
             syntaxTrees: new[] { syntaxTree },
             references: references);
 
-        var generator = new BuilderGenerator.BuilderGenerator();
+        var generator = new BuilderGenerator();
 
         GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
 
