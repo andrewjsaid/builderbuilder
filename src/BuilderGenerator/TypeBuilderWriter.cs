@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.CodeAnalysis;
 using static BuilderGenerator.BuilderGeneratorHelper;
 
@@ -8,31 +9,31 @@ namespace BuilderGenerator;
 
 internal static class TypeBuilderWriter
 {
-    private static readonly string _toolName = typeof(BuilderGenerator).Assembly.GetName().Name;
+    private static readonly string s_toolName = typeof(BuilderGenerator).Assembly.GetName().Name;
 
     public static string Write(INamedTypeSymbol type)
     {
         StringBuilder sb = new();
-        var properties = GetProperties(type);
+        IEnumerable<IPropertySymbol> properties = GetProperties(type);
 
         const string version = "v1.0.0.0";
 
         _ = sb.AppendLine(Header)
-          .AppendLine("using System;")
-          .AppendLine()
-          .Append("namespace ")
-          .Append(type.ContainingNamespace.ToDisplayString())
-          .AppendLine(";")
-          .AppendLine()
+            .AppendLine("using System;")
+            .AppendLine()
+            .Append("namespace ")
+            .Append(type.ContainingNamespace.ToDisplayString())
+            .AppendLine(";")
+            .AppendLine()
           // See https://github.com/dotnet/runtime/issues/64541.
-          .Append("[System.CodeDom.Compiler.GeneratedCode(\"")
-          .Append(_toolName)
-          .Append("\", \"")
-          .Append(version)
-          .AppendLine("\")]")
-          .Append("public class ")
-          .Append(GetTypeName(type, true))
-          .AppendLine("{");
+            .Append("[System.CodeDom.Compiler.GeneratedCode(\"")
+            .Append(s_toolName)
+            .Append("\", \"")
+            .Append(version)
+            .AppendLine("\")]")
+            .Append("public class ")
+            .Append(GetTypeName(type, true))
+            .AppendLine("{");
 
         foreach (var prop in properties)
         {
@@ -43,7 +44,7 @@ internal static class TypeBuilderWriter
 
         AppendBuildMethod(sb, GetTypeName(type, false), properties, 4);
         sb.AppendLine("}")
-           .AppendLine();
+            .AppendLine();
 
         return sb.ToString();
     }
@@ -102,12 +103,12 @@ internal static class TypeBuilderWriter
 
         Indent(sb, spaces);
         sb.Append("public ")
-          .Append(typeName)
-          .AppendLine(" Build() =>");
+            .Append(typeName)
+            .AppendLine(" Build() =>");
         Indent(sb, spaces * 2);
         sb.Append("new ")
-        .Append(typeName)
-        .Append('(');
+            .Append(typeName)
+            .Append('(');
 
         foreach (var prop in props)
             sb.Append(prop.Name).Append(Separator);

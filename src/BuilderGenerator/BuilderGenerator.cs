@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -61,9 +62,9 @@ public class BuilderGenerator : IIncrementalGenerator
         var cds = (ClassDeclarationSyntax)context.Node;
 
         // loop through all the attributes on the method
-        foreach (var attributeListSyntax in cds.AttributeLists)
+        foreach (AttributeListSyntax attributeListSyntax in cds.AttributeLists)
         {
-            foreach (var attributeSyntax in attributeListSyntax.Attributes)
+            foreach (AttributeSyntax attributeSyntax in attributeListSyntax.Attributes)
             {
                 if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
                     continue;
