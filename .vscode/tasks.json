@@ -20,26 +20,6 @@
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "build2",
-      "command": "dotnet",
-      "type": "process",
-      "suppressTaskName": true,
-      "args": [
-        "build",
-        "${workspaceFolder}/BuilderBuilder.sln",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary",
-        "-c",
-        "${input:rememberConfig}"
-      ],
-      "group": "build",
-      "presentation": {
-        "reveal": "silent"
-      },
-      "problemMatcher": "$msCompile",
-      "hide": true
-    },
-    {
       "label": "clean",
       "command": "dotnet",
       "type": "process",
@@ -52,21 +32,18 @@
   ],
   "inputs": [
     {
+      // https://marketplace.visualstudio.com/items?itemName=rioj7.command-variable#pickstringremember
       "id": "config",
-      "type": "pickString",
-      "default": "Debug",
-      "options": [
-        "Debug",
-        "Release"
-      ],
-      "description": "Build configuration"
-    },
-    {
-      "id": "rememberConfig",
       "type": "command",
-      "command": "extension.commandvariable.remember",
+      "command": "extension.commandvariable.pickStringRemember",
       "args": {
-        "key": "buildConfig"
+        "key": "buildConfig",
+        "default": "Debug",
+        "options": [
+          "Debug",
+          "Release"
+        ],
+        "description": "Build configuration"
       }
     }
   ]
