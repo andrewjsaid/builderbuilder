@@ -546,9 +546,6 @@ dotnet_diagnostic.RCS1165.severity = none
 # RCS1168: Parameter name differs from base name
 dotnet_diagnostic.RCS1168.severity = suggestion
 
-# RCS1177: Use 'var' instead of explicit type (in foreach)
-dotnet_diagnostic.RCS1177.severity = suggestion
-
 # RCS1182: Remove redundant base interface
 dotnet_diagnostic.RCS1182.severity = suggestion
 
