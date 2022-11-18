@@ -599,11 +599,11 @@ roslynator_refactoring.RR0066.enabled = true
 
 ##########################################
 # .NET Code Quality Rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/
 ##########################################
 
 ## Design rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/design-warnings
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/design-warnings
 
 # CA1000: Do not declare static members on generic types
 dotnet_code_quality.CA1000.api_surface = all
@@ -615,6 +615,10 @@ dotnet_diagnostic.CA1002.severity = suggestion
 # CA1005: Avoid excessive parameters on generic types
 dotnet_code_quality.CA1005.api_surface = all
 dotnet_diagnostic.CA1005.severity = none
+
+# .NET 7+. None is there by default.
+dotnet_code_quality.CA1008.additional_enum_none_names = Default|Never|Off
+dotnet_code_quality.CA1008.severity = suggestion
 
 # CA1014: Mark assemblies with CLSCompliantAttribute
 # https://github.com/dotnet/roslyn/issues/37876#issuecomment-738042719
@@ -659,7 +663,7 @@ dotnet_diagnostic.CA1062.severity = none
 dotnet_diagnostic.CA1069.severity = error
 
 ## Globalization rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/globalization-warnings
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/globalization-warnings
 
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = none
@@ -668,13 +672,13 @@ dotnet_diagnostic.CA1303.severity = none
 dotnet_diagnostic.CA1310.severity = suggestion
 
 ## Maintainability rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/maintainability-warnings
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/maintainability-warnings
 
 # CA1501: Avoid excessive inheritance
 dotnet_diagnostic.CA1501.severity = suggestion
 
 ## Naming rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/naming-warnings
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/naming-warnings
 
 # CA1712: Do not prefix enum values with type name
 dotnet_code_quality.CA1712.severity = warning
@@ -686,7 +690,7 @@ dotnet_code_quality.CA1715.exclude_single_letter_type_parameters = true
 dotnet_diagnostic.CA1724.severity = none
 
 ## Performance rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/performance-warnings
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/performance-warnings
 
 # CA1802: Use Literals Where Appropriate
 dotnet_code_quality.CA1802.required_modifiers = none
@@ -710,7 +714,7 @@ dotnet_diagnostic.CA1849.severity = warning
 dotnet_diagnostic.CA1851.severity = warning
 
 ## Reliability rules
-# https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/reliability-warnings
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/reliability-warnings
 
 # CA2000: Dispose objects before losing scope
 dotnet_diagnostic.CA2000.severity = warning
@@ -729,6 +733,7 @@ dotnet_diagnostic.CA2013.severity = error
 dotnet_diagnostic.CA2017.severity = warning
 
 ## Usage rules
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/usage-warnings
 
 # CA2200: Rethrow to preserve stack details
 dotnet_diagnostic.CA2200.severity = warning
@@ -741,6 +746,9 @@ dotnet_diagnostic.CA2214.severity = error
 
 # CA2227: Collection properties should be read only
 dotnet_diagnostic.CA2227.severity = warning
+
+# CA2241: Provide correct arguments to formatting methods
+dotnet_code_quality.CA2241.try_determine_additional_string_formatting_methods_automatically = true
 
 # CA2246: Do not assign a symbol and its member in the same statement
 dotnet_diagnostic.CA2246.severity = error
