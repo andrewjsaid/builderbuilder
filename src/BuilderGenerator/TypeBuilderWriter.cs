@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 using Microsoft.CodeAnalysis;
@@ -17,7 +16,7 @@ internal static class TypeBuilderWriter
         StringBuilder sb = new();
         IEnumerable<IPropertySymbol> properties = GetProperties(type);
 
-        const string version = "v1.0.0.0";
+        const string Version = "v1.0.0.0";
 
         _ = sb.AppendLine(Header)
             .AppendLine("using System;")
@@ -30,21 +29,26 @@ internal static class TypeBuilderWriter
             .Append("[System.CodeDom.Compiler.GeneratedCode(\"")
             .Append(s_toolName)
             .Append("\", \"")
-            .Append(version)
+            .Append(Version)
             .AppendLine("\")]")
             .Append("public class ")
             .Append(GetTypeName(type, true))
             .AppendLine("{");
 
-        foreach (var prop in properties)
+        foreach (IPropertySymbol prop in properties)
         {
-            Indent(sb, 4);
-            sb.Append("public ").Append(prop.Type).Append(' ').Append(prop.Name).AppendLine(" { get; set; }");
+            _ = sb
+                .Indent(4)
+                .Append("public ")
+                .Append(prop.Type)
+                .Append(' ')
+                .Append(prop.Name)
+                .AppendLine(" { get; set; }");
         }
-        sb.AppendLine();
+        _ = sb.AppendLine();
 
         AppendBuildMethod(sb, GetTypeName(type, false), properties, 4);
-        sb.AppendLine("}")
+        _ = sb.AppendLine("}")
             .AppendLine();
 
         return sb.ToString();
@@ -81,42 +85,40 @@ internal static class TypeBuilderWriter
         return isBuilder ? typeName + "Builder" : typeName;
     }
 
-    private static void Indent(StringBuilder sb, uint spaces)
-    {
-        for (var i = 0; i < spaces; i++)
-        {
-            sb.Append(' ');
-        }
-    }
+    private static StringBuilder Indent(this StringBuilder sb, int spaces) => sb.Append(' ', spaces);
 
     private static IEnumerable<IPropertySymbol> GetProperties(INamedTypeSymbol type)
     {
-        foreach (var member in type.GetMembers())
+        foreach (ISymbol member in type.GetMembers())
         {
             if (member is IPropertySymbol propertySymbol)
                 yield return propertySymbol;
         }
     }
 
-    private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props, uint spaces)
+    private static void AppendBuildMethod(StringBuilder sb, string typeName, IEnumerable<IPropertySymbol> props, int spaces)
     {
         const string Separator = ", ";
 
-        Indent(sb, spaces);
-        sb.Append("public ")
+        sb = sb
+            .Indent(spaces)
+            .Append("public ")
             .Append(typeName)
-            .AppendLine(" Build() =>");
-        Indent(sb, spaces * 2);
-        sb.Append("new ")
+            .AppendLine(" Build() =>")
+            .Indent(spaces * 2)
+            .Append("new ")
             .Append(typeName)
             .Append('(');
 
-        foreach (var prop in props)
-            sb.Append(prop.Name).Append(Separator);
-
-        if (props.Any())
+        var hasProp = false;
+        foreach (IPropertySymbol prop in props)
+        {
+            hasProp = true;
+            _ = sb.Append(prop.Name).Append(Separator);
+        }
+        if (hasProp)
             sb.Length -= Separator.Length;
 
-        sb.AppendLine(");");
+        _ = sb.AppendLine(");");
     }
 }

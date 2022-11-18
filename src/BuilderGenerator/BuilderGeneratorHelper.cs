@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BuilderGenerator;
+﻿namespace BuilderGenerator;
 
 internal static class BuilderGeneratorHelper
 {

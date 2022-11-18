@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 
 using NUnit.Framework;
+
 namespace BuilderGenerator.Tests;
 
 [TestFixture]

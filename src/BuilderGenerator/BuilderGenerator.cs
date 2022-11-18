@@ -17,7 +17,7 @@ public class BuilderGenerator : IIncrementalGenerator
 {
     private const string BuildableAttribute = "BuilderGenerator.BuildableAttribute";
 
-    private static readonly DiagnosticDescriptor ErrorGeneratingBuilderSource = new
+    private static readonly DiagnosticDescriptor s_errorGeneratingBuilderSource = new
     (
         id: "BB001",
         title: "An error has occurred while generating source for builder",
@@ -27,7 +27,7 @@ public class BuilderGenerator : IIncrementalGenerator
         isEnabledByDefault: true
     );
 
-    private static readonly DiagnosticDescriptor SuccessfullyGeneratedBuilderSource = new
+    private static readonly DiagnosticDescriptor s_successfullyGeneratedBuilderSource = new
     (
         id: "BB002",
         title: "Successfully generated source for builder",
@@ -57,7 +57,7 @@ public class BuilderGenerator : IIncrementalGenerator
     public static bool IsSyntaxTargetForGeneration(SyntaxNode node)
     => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
 
-    public static ClassDeclarationSyntax? GetSemanticTargetForGeneration(GeneratorSyntaxContext context)
+    public static ClassDeclarationSyntax? GetSemanticTargetForGeneration(in GeneratorSyntaxContext context)
     {
         // we know the node is a cds thanks to IsSyntaxTargetForGeneration
         var cds = (ClassDeclarationSyntax)context.Node;
@@ -81,21 +81,21 @@ public class BuilderGenerator : IIncrementalGenerator
         return null;
     }
 
-    public static void Execute(Compilation compilation, IEnumerable<ClassDeclarationSyntax> classes, SourceProductionContext context)
+    public static void Execute(Compilation compilation, IEnumerable<ClassDeclarationSyntax> classes, in SourceProductionContext context)
     {
         if (!(classes?.Any() ?? false))
         {
             // nothing to do yet
             return;
         }
-        var buildableSymbol = compilation.GetTypeByMetadataName(BuildableAttribute)!;
+        INamedTypeSymbol buildableSymbol = compilation.GetTypeByMetadataName(BuildableAttribute)!;
 
-        foreach (var @class in classes)
+        foreach (ClassDeclarationSyntax @class in classes)
         {
             if (context.CancellationToken.IsCancellationRequested)
                 return;
 
-            var model = compilation.GetSemanticModel(@class.SyntaxTree, true);
+            SemanticModel model = compilation.GetSemanticModel(@class.SyntaxTree, true);
             if (model.GetDeclaredSymbol(@class) is not INamedTypeSymbol typeSymbol)
                 continue;
 
@@ -106,7 +106,7 @@ public class BuilderGenerator : IIncrementalGenerator
 
     private static bool HasAttribute(INamedTypeSymbol typeSymbol, INamedTypeSymbol attributeSymbol)
     {
-        foreach (var attribute in typeSymbol.GetAttributes())
+        foreach (AttributeData attribute in typeSymbol.GetAttributes())
         {
             if (attribute.AttributeClass?.Equals(attributeSymbol, SymbolEqualityComparer.Default) == true)
                 return true;
@@ -114,14 +114,14 @@ public class BuilderGenerator : IIncrementalGenerator
         return false;
     }
 
-    private static void Execute(SourceProductionContext context, INamedTypeSymbol typeSymbol)
+    private static void Execute(in SourceProductionContext context, INamedTypeSymbol typeSymbol)
     {
         try
         {
             var source = TypeBuilderWriter.Write(typeSymbol);
             var sourceText = SourceText.From(source, Encoding.UTF8);
-            context.ReportDiagnostic(Diagnostic.Create(SuccessfullyGeneratedBuilderSource, Location.None, typeSymbol.Name));
-            string name = typeSymbol.Name;
+            context.ReportDiagnostic(Diagnostic.Create(s_successfullyGeneratedBuilderSource, Location.None, typeSymbol.Name));
+            var name = typeSymbol.Name;
             if (typeSymbol.IsGenericType)
             {
                 var idx = name.IndexOf('<');
@@ -134,7 +134,7 @@ public class BuilderGenerator : IIncrementalGenerator
         }
         catch (Exception ex)
         {
-            context.ReportDiagnostic(Diagnostic.Create(ErrorGeneratingBuilderSource, Location.None, typeSymbol.Name, ex.Message));
+            context.ReportDiagnostic(Diagnostic.Create(s_errorGeneratingBuilderSource, Location.None, typeSymbol.Name, ex.Message));
         }
     }
 }

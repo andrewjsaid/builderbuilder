@@ -44,7 +44,7 @@ public static class ModuleInitializer
             Left: TargetLeftArguments,
             Right: TargetRightArguments);
 
-        DiffTools.AddTool(
+        _ = DiffTools.AddTool(
             name: "MyTool",
             autoRefresh: true,
             isMdi: false,
@@ -96,14 +96,14 @@ public static class ModuleInitializer
                 "tif",
                 "tiff",
                 "wap",
-                "wbmp",
+                "wb's",
                 "wbm",
                 "webp",
                 "xbm",
                 "xpm"
             },
-            osSupport: new(
-                Windows: new(
+            osSupport: new OsSupport(
+                Windows: new OsSettings(
                     @"D:\Apps\WinMerge\WinMergeU.exe",
                     launchArguments)
         ));
