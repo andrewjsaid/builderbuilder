@@ -458,6 +458,9 @@ dotnet_diagnostic.RCS0058.severity = suggestion
 # RCS0059: Place new line after/before null-conditional operator
 roslynator_null_conditional_operator_new_line = before
 
+# RCS0060: Add/remove blank line after file scoped namespace declaration
+roslynator_blank_line_after_file_scoped_namespace_declaration = true
+
 # RCS1001: Add braces (when expression spans over multiple lines)
 dotnet_diagnostic.RCS1001.severity = suggestion
 
@@ -533,6 +536,9 @@ dotnet_diagnostic.RCS1142.severity = suggestion
 # RCS1145: Remove redundant 'as' operator
 dotnet_diagnostic.RCS1145.severity = warning
 
+# RCS1146: Use conditional access
+dotnet_diagnostic.RCS1146.severity = warning
+
 # RCS1158: Static member in generic type should use a type parameter
 dotnet_diagnostic.RCS1158.severity = none
 
@@ -564,6 +570,9 @@ dotnet_diagnostic.RCS1208.severity = none
 # RCS1211: Remove unnecessary 'else'
 dotnet_diagnostic.RCS1211.severity = suggestion
 
+# RCS1227: Validate arguments correctly
+dotnet_diagnostic.RCS1227.severity = warning
+
 # RCS1231: Make parameter ref read-only
 dotnet_diagnostic.RCS1231.severity = suggestion
 
@@ -587,6 +596,12 @@ roslynator_use_var_instead_of_implicit_object_creation = true
 # RCS1252: Normalize usage of infinite loop
 roslynator_infinite_loop_style = while
 dotnet_diagnostic.RCS1252.severity = suggestion
+
+# RCS1255: Simplify argument null check
+dotnet_diagnostic.rcs1255.severity = suggestion
+
+# RCS1256: Invalid argument null check
+dotnet_diagnostic.rcs1256.severity = suggestion
 
 # RCS9001: Use pattern matching
 dotnet_diagnostic.RCS9001.severity = suggestion
