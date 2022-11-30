@@ -1,4 +1,4 @@
-﻿using BuilderGenerator;
+using BuilderGenerator;
 
 using System;
 
