@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Text;
 
 using Microsoft.CodeAnalysis;
@@ -60,7 +61,7 @@ internal static class TypeBuilderWriter
 
         if (type.IsGenericType && !type.IsUnboundGenericType)
         {
-            System.Collections.Immutable.ImmutableArray<SymbolDisplayPart> parts = type.ToDisplayParts();
+            ImmutableArray<SymbolDisplayPart> parts = type.ToDisplayParts();
             var length = parts.Length;
             if (length > 0)
             {
