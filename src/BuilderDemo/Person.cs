@@ -1,3 +1,5 @@
+using System;
+
 using BuilderGenerator;
 
 namespace BuilderDemo;
@@ -13,4 +15,8 @@ public class Person
 
     public string Name { get; }
     public int Age { get; }
+
+    public override string ToString() => $"Person(Name = {Name}, Age={Age})";
+
+    public override int GetHashCode() => HashCode.Combine(Name, Age);
 }

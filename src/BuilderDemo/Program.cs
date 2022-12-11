@@ -20,8 +20,7 @@ public static class Program
 
         Person person = builder.Build();
 
-        Console.WriteLine(person.Name);
-        Console.WriteLine(person.Age);
+        Console.WriteLine(person);
 
         AddressBuilder builder2 = new()
         {
