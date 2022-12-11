@@ -686,6 +686,9 @@ dotnet_diagnostic.CA1303.severity = none
 # CA1310: Specify StringComparison for correctness
 dotnet_diagnostic.CA1310.severity = suggestion
 
+# CA1311: Specify a culture or use an invariant version
+dotnet_diagnostic.CA1311.severity = warning
+
 ## Maintainability rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/maintainability-warnings
 
@@ -725,8 +728,14 @@ dotnet_diagnostic.CA1846.severity = warning
 # CA1849: Call async methods when in an async method
 dotnet_diagnostic.CA1849.severity = warning
 
+# CA1850: Prefer static HashData method over ComputeHash
+dotnet_diagnostic.CA1850.severity = warning
+
 # CA1851: Possible multiple enumerations of IEnumerable collection
 dotnet_diagnostic.CA1851.severity = warning
+
+# CA1852: Seal internal types
+dotnet_diagnostic.CA1852.severity = error
 
 ## Reliability rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/reliability-warnings
@@ -746,6 +755,9 @@ dotnet_diagnostic.CA2013.severity = error
 
 # CA2017: Parameter count mismatch
 dotnet_diagnostic.CA2017.severity = warning
+
+# CA2019: ThreadStatic fields should not use inline initialization
+dotnet_diagnostic.CA2019.severity = error
 
 ## Usage rules
 # https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/usage-warnings
@@ -767,3 +779,9 @@ dotnet_code_quality.CA2241.try_determine_additional_string_formatting_methods_au
 
 # CA2246: Do not assign a symbol and its member in the same statement
 dotnet_diagnostic.CA2246.severity = error
+
+# CA2259: Ensure ThreadStatic is only used with static fields
+dotnet_diagnostic.CA2259.severity = error
+
+# CA2260: Implement generic math interfaces correctly
+dotnet_diagnostic.CA2260.severity = error
