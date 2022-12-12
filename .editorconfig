@@ -130,6 +130,9 @@ dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_simplified_boolean_expressions= true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
 
+dotnet_diagnostic.IDE0010.severity = none
+dotnet_diagnostic.IDE0072.severity = warning
+
 # Null-checking preferences
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/null-checking-preferences
 csharp_style_throw_expression = true:suggestion
