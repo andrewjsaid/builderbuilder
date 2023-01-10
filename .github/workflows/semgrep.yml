@@ -8,6 +8,12 @@ on:
     - .github/workflows/semgrep.yml
   schedule:
   - cron: '0 0 * * 0'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "The reason for running the workflow"
+        required: true
+        default: "Manual run"
 name: Semgrep
 jobs:
   semgrep:
