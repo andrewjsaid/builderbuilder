@@ -19,7 +19,7 @@ public static class ModuleInitializer
         if (assemblyConfigurationAttribute is not null)
             Console.WriteLine($"Build Configuration is {assemblyConfigurationAttribute.Configuration}.");
 
-        VerifySourceGenerators.Enable();
+        VerifySourceGenerators.Initialize();
 
         SetupDiffTool();
     }
