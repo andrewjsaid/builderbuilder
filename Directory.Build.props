@@ -14,5 +14,6 @@
     <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
     <!-- https://github.com/dotnet/roslyn/issues/37876#issuecomment-738042719 -->
     <NoWarn>$(NoWarn);CA1014</NoWarn>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 </Project>
