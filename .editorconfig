@@ -544,6 +544,9 @@ dotnet_diagnostic.RCS1071.severity = warning
 # RCS1074: Remove redundant constructor
 dotnet_diagnostic.RCS1074.severity = suggestion
 
+# RCS1077: Optimize LINQ method call
+dotnet_diagnostic.RCS1077.severity = warning
+
 # RCS1078: Use "" or 'string.Empty'
 roslynator_empty_string_style = field
 
@@ -552,6 +555,9 @@ roslynator_configure_await = true
 
 # RCS1091: Remove empty region
 dotnet_diagnostic.RCS1091.severity = suggestion
+
+# RCS1097: Remove redundant 'ToString' call
+dotnet_diagnostic.RCS1097.severity = warning
 
 # RCS1124: Inline local variable
 dotnet_diagnostic.RCS1124.severity = suggestion
