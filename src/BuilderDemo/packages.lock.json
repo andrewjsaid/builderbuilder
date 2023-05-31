@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net7.0": {
+      "IDisposableAnalyzers": {
+        "type": "Direct",
+        "requested": "[4.0.6, )",
+        "resolved": "4.0.6",
+        "contentHash": "yKprG5WzImj+POCEACoHLi7CgYb8aMqPN/XU2qclARe9SIn73EoY7BItHg+p4DufWNFYxgJiPuqndW5D/OmswA=="
+      },
+      "ReflectionAnalyzers": {
+        "type": "Direct",
+        "requested": "[0.3.1, )",
+        "resolved": "0.3.1",
+        "contentHash": "Q7N3nziye+vGsDPcrKrPFjlaFhrM+1adtJcpjFeq4ufBB+uKc4kRezSK03382xpE8iNQbiRHUl+z31NW0W18FQ=="
+      },
+      "buildergenerator": {
+        "type": "Project"
+      }
+    }
+  }
+}

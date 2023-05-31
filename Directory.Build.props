@@ -15,5 +15,14 @@
     <!-- https://github.com/dotnet/roslyn/issues/37876#issuecomment-738042719 -->
     <NoWarn>$(NoWarn);CA1014</NoWarn>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files#enabling-the-lock-file -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <!-- https://github.com/dotnet/reproducible-builds/blob/main/Documentation/Reproducible-MSBuild/Techniques/DisableImplicitNuGetFallbackFolder.md -->
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+  </PropertyGroup>
+  <!-- GH, CircleCI, GitLab and BitBucket use CI -->
+  <PropertyGroup Label="CI" Condition="'$(CI)' != ''">
+    <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files#restore-behavior-with-lock-file -->
+    <RestoreLockedMode>true</RestoreLockedMode>
   </PropertyGroup>
 </Project>
