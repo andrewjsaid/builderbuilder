@@ -4,7 +4,13 @@ name: "CodeQL"
 
 on:
   push:
+    branches: [master]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.txt"
   pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [master]
     paths-ignore:
       - "**/*.md"
       - "**/*.txt"
@@ -27,6 +33,10 @@ jobs:
       matrix:
         language: ["csharp"]
 
+    env:
+      NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+      DOTNET_NOLOGO: true
+
     steps:
       - name: Checkout repository
         id: checkout_repo
@@ -34,20 +44,27 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v3.1.0
-        with:
-          dotnet-version: "7.x"
+      - name: "Checkout head"
+        run: git checkout HEAD^2
+        if: ${{ github.event_name == 'pull_request' }}
 
-          # Initializes the CodeQL tools for scanning.
+      # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
         id: init_codeql
-        uses: github/codeql-action/init@v2.3.3
+        uses: github/codeql-action/init@v2.3.5
         with:
           languages: ${{ matrix.language }}
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3.2.0
+        with:
+          dotnet-version: "7.x"
+          dotnet-quality: 'ga'
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2.3.3
+        uses: github/codeql-action/analyze@v2.3.5
