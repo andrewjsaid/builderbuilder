@@ -29,7 +29,12 @@ jobs:
           cache-dependency-path: "**/packages.lock.json"
 
       - name: Install dependencies
+        run: dotnet restore --force-evaluate
+        if: contains(github.actor, 'dependabot') == true
+
+      - name: Install dependencies
         run: dotnet restore
+        if: contains(github.actor, 'dependabot') == false
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
