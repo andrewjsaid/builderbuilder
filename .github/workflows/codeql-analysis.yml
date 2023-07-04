@@ -45,7 +45,7 @@ jobs:
           fetch-depth: 2
 
       - name: "Checkout head"
-        run: git checkout HEAD^2
+        run: git checkout HEAD
         if: ${{ github.event_name == 'pull_request' }}
 
       # Initializes the CodeQL tools for scanning.
