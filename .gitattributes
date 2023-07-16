@@ -13,3 +13,10 @@ Dockerfile text
 # Documentation
 *.markdown text diff=markdown linguist-detectable
 *.md       text diff=markdown linguist-detectable
+
+# VS Code
+.vscode/*.json linguist-language=JSON-with-Comments
+
+# Fixes syntax highlighting on GitHub to allow comments
+.devcontainer.json linguist-language=JSON-with-Comments
+devcontainer.json linguist-language=JSON-with-Comments
