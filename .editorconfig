@@ -159,6 +159,8 @@ dotnet_diagnostic.IDE0072.severity = warning
 # Convert typeof to nameof
 dotnet_diagnostic.IDE0082.severity = warning
 
+csharp_style_prefer_utf8_string_literals = true
+
 # Null-checking preferences
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/null-checking-preferences
 csharp_style_throw_expression = true
@@ -219,6 +221,9 @@ dotnet_remove_unnecessary_suppression_exclusions = all
 dotnet_diagnostic.IDE0005.severity = warning
 # https://github.com/dotnet/roslyn/issues/41640#issuecomment-1314950048
 dotnet_diagnostic.CS8019.severity = suggestion
+
+csharp_style_prefer_top_level_statements = false
+dotnet_diagnostic.IDE0210.severity = none
 
 #############################
 # .NET Formatting Rules
@@ -767,7 +772,7 @@ dotnet_diagnostic.CA1845.severity = warning
 dotnet_diagnostic.CA1846.severity = warning
 
 # CA1849: Call async methods when in an async method
-dotnet_diagnostic.CA1849.severity = warning
+dotnet_diagnostic.CA1849.severity = error
 
 # CA1850: Prefer static HashData method over ComputeHash
 dotnet_diagnostic.CA1850.severity = warning
