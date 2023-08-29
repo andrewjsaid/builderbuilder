@@ -10,11 +10,11 @@
       },
       "GitHubActionsTestLogger": {
         "type": "Direct",
-        "requested": "[2.3.2, )",
-        "resolved": "2.3.2",
-        "contentHash": "RKJ/mmHSqaY/Mzrxt/5qfbeGCc1s23aIH9uR61sDxkI/uqv0fAWNL5onthWtQVVtlp10XHYUx2qZZrF4irUQpg==",
+        "requested": "[2.3.3, )",
+        "resolved": "2.3.3",
+        "contentHash": "9mBfuOIUmZ3dnL/hYaENh/eGKC6r3ufwo2rEkWJVDDj2UUGuu59GsMezYkV3bj/wZ8rcgzDIr1fj/wXh1yklQA==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "17.6.0"
+          "Microsoft.TestPlatform.ObjectModel": "17.7.1"
         }
       },
       "Microsoft.CodeAnalysis.Analyzers": {
@@ -65,13 +65,13 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[20.8.1, )",
-        "resolved": "20.8.1",
-        "contentHash": "Sfma6XbrhmLl+d5BGoh6EQmUBL+Zmn8ewf5KGG96FTmkHk5zNSz43k8a6jMbuVK04S4FVFq2fEwtViGQyitzZQ==",
+        "requested": "[20.8.2, )",
+        "resolved": "20.8.2",
+        "contentHash": "LjBQGC2UJVqOCWNUX+dBmTIlGMKyKDmrXVTcgIWAo8lxSzI1/DZPTrfXAewzy9Gtc84rpol+1zAntEfT3Kg+qA==",
         "dependencies": {
           "EmptyFiles": "4.5.0",
           "NUnit": "3.13.3",
-          "Verify": "20.8.1"
+          "Verify": "20.8.2"
         }
       },
       "Verify.SourceGenerators": {
@@ -203,8 +203,8 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "20.8.1",
-        "contentHash": "oSCEcSMf73uTS/ikmYrUh8U+e4H/K1fBa8norNAwHMh5ReUxIYH1upOMcthqDF+QDyBbt34S8w9NTws6Sk/jtQ==",
+        "resolved": "20.8.2",
+        "contentHash": "4Ep1GKhDdHLy50g3tSVtPkq1lADL20OxDVkrkT/cehZcPeTtH+5voqfzVklmvEDvaY+DleuRgaHmTcllqGOsUw==",
         "dependencies": {
           "Argon": "0.7.2",
           "DiffEngine": "12.2.1",
