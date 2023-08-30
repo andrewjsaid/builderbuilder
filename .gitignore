@@ -308,6 +308,10 @@ OpenCover/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
+# Backup folder for Package Reference Convert tool in Visual Studio 2017
+MigrationBackup/
+
+
 .vscode/*
 !.vscode/tasks.json
 !.vscode/launch.json

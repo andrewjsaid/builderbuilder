@@ -528,9 +528,6 @@ dotnet_diagnostic.RCS1015.severity = suggestion
 # RCS1031: Remove unnecessary braces
 dotnet_diagnostic.RCS1031.severity = suggestion
 
-# RCS1040: Remove empty 'else' clause
-dotnet_diagnostic.RCS1040.severity = suggestion
-
 # RCS1051: Parenthesize condition of conditional expression
 roslynator_conditional_operator_condition_parentheses_style = omit_when_condition_is_single_token
 
@@ -557,9 +554,6 @@ roslynator_empty_string_style = field
 
 # RCS1090: Add/remove 'ConfigureAwait(false)' call
 roslynator_configure_await = true
-
-# RCS1091: Remove empty region
-dotnet_diagnostic.RCS1091.severity = suggestion
 
 # RCS1097: Remove redundant 'ToString' call
 dotnet_diagnostic.RCS1097.severity = warning
@@ -648,6 +642,9 @@ dotnet_diagnostic.rcs1255.severity = suggestion
 
 # RCS1256: Invalid argument null check
 dotnet_diagnostic.rcs1256.severity = suggestion
+
+# RCS1257: Use enum field explicitly
+dotnet_diagnostic.rcs1257.severity = warning
 
 # RCS9001: Use pattern matching
 dotnet_diagnostic.RCS9001.severity = suggestion
