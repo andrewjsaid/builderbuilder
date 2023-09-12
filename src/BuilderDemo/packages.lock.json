@@ -4,9 +4,9 @@
     "net7.0": {
       "IDisposableAnalyzers": {
         "type": "Direct",
-        "requested": "[4.0.6, )",
-        "resolved": "4.0.6",
-        "contentHash": "yKprG5WzImj+POCEACoHLi7CgYb8aMqPN/XU2qclARe9SIn73EoY7BItHg+p4DufWNFYxgJiPuqndW5D/OmswA=="
+        "requested": "[4.0.7, )",
+        "resolved": "4.0.7",
+        "contentHash": "Xrn/VABG/JhulJOmHOeOAY4/qafbEyRj3Z6gMeSABT1XCqMe8HnqOvid8gEVJt47VUZ6eD7XpTFLZ1KLyTZgdw=="
       },
       "ReflectionAnalyzers": {
         "type": "Direct",
