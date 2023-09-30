@@ -65,29 +65,29 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[21.1.6, )",
-        "resolved": "21.1.6",
-        "contentHash": "b2PqS2+LYdY/Ddi3sxg2Tuv2XhDu/6kYstONqhX2iZWAB+mEz8VkSzuovVl9ELoaMa+PrHxU7xxW079b13Qu3Q==",
+        "requested": "[21.3.0, )",
+        "resolved": "21.3.0",
+        "contentHash": "I0MC7Nd6iigLptlGhezz5u30ypYMSA07VnZMhwpc3AHOlQfZ/EaU/p+qBW7jkUiCuWt3ZArgCYJ99YPa+NueoQ==",
         "dependencies": {
           "EmptyFiles": "4.5.1",
           "NUnit": "3.13.3",
-          "Verify": "21.1.6"
+          "Verify": "21.3.0"
         }
       },
       "Verify.SourceGenerators": {
         "type": "Direct",
-        "requested": "[2.1.0, )",
-        "resolved": "2.1.0",
-        "contentHash": "idAqfeip6tkBSbuxw8YxJgRD9SrxoY1pahpRN619NIEpArw4UbsQUpjvency3FD+JpBhi3Fr3iUisb4v0EggYg==",
+        "requested": "[2.2.0, )",
+        "resolved": "2.2.0",
+        "contentHash": "7SEm/yHj6IYu/XWB01f3hiFowR/WoxauJxSiK0Y05pFcrW9ADKB4p5MQW6yIXCkNsbaVjJByuoywWszKLY0izw==",
         "dependencies": {
-          "Argon": "0.3.3",
-          "Verify": "19.9.2"
+          "Argon": "0.11.0",
+          "Verify": "21.3.0"
         }
       },
       "Argon": {
         "type": "Transitive",
-        "resolved": "0.10.0",
-        "contentHash": "mt/xp+muvKd6a2TWgZgj+GRQw7z1xwGwhJBto8M34J66ajnpahULFDZDuK809D7dOm0agr6RqwgyBbQRHj17KQ=="
+        "resolved": "0.11.0",
+        "contentHash": "ifnjfK718Ve/zX07VuTnuRRYe6q2IBh38PySZMOt6FZwn3C0FNK2uOQc+FJluaGBhWZP1OhOBt3HLbC1hzNNug=="
       },
       "DiffEngine": {
         "type": "Transitive",
@@ -203,10 +203,10 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "21.1.6",
-        "contentHash": "4RkN3K992bn/1W5YeB+hUpwo1optTVVqsyYJ+Qq2YLp9ulP563n0lUK2RbMsCwiOaoqwk3oKGRPEaKHHYqSNQw==",
+        "resolved": "21.3.0",
+        "contentHash": "Cp5BUQmXQdmmlbVcwFTR010CkP4w0xwgDjyjzlEBfsXKoz9CgLM2mxQjPbCgz3eHi5LJa7bnW6JOYQmInOVdkA==",
         "dependencies": {
-          "Argon": "0.10.0",
+          "Argon": "0.11.0",
           "DiffEngine": "12.3.0",
           "EmptyFiles": "4.5.1",
           "SimpleInfoName": "2.1.1",

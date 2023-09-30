@@ -22,8 +22,8 @@
         contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Verify.NUnit" Version="21.1.6" />
-    <PackageReference Include="Verify.SourceGenerators" Version="2.1.0" />
+    <PackageReference Include="Verify.NUnit" Version="21.3.0" />
+    <PackageReference Include="Verify.SourceGenerators" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\BuilderGenerator\BuilderGenerator.csproj" />
