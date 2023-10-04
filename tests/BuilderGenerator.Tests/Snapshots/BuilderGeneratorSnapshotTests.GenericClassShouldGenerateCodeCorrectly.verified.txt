@@ -6,8 +6,6 @@
       Severity: Info,
       WarningLevel: 1,
       Location: : (0,0)-(0,0),
-      Description: ,
-      HelpLink: ,
       MessageFormat: Successfully generated source for builder with name `{0}`,
       Message: Successfully generated source for builder with name `Foo`,
       Category: Compilation
