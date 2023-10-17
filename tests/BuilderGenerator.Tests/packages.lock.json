@@ -65,13 +65,13 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[22.1.3, )",
-        "resolved": "22.1.3",
-        "contentHash": "ZP51bA5SI+MFqgjdCvsAkpJ2Fj9BaMOfTvwY43lwmAt6gZNqGnXAw8q2L1/hH1hEmFNjbT06rhmIQg5RrqRGSw==",
+        "requested": "[22.1.4, )",
+        "resolved": "22.1.4",
+        "contentHash": "lGUfs5wRGGr7YAy/qlCCX7wlZQSIbhBOMMrNClcq5K6xEmhdV4Wp2fh0rOpSFQnuv0pyOvuQyo90LtOH+RHumQ==",
         "dependencies": {
           "EmptyFiles": "4.6.0",
           "NUnit": "3.13.3",
-          "Verify": "22.1.3"
+          "Verify": "22.1.4"
         }
       },
       "Verify.SourceGenerators": {
@@ -203,8 +203,8 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "22.1.3",
-        "contentHash": "pRf6mt3SUSdMqP6ZQA6zvtI2cYrQ3lQhkE750ThiNeJY6S3EjHKyVIlDxHcYP1EnGj7UPjuVhWRta+R/BWfx3Q==",
+        "resolved": "22.1.4",
+        "contentHash": "t7t+uv9mFKBRS+x6wZ8g+3dohItO9Q4XPiXYP4wmtT3/nTliPrjGqkKn6Mux3dXms0wvhXbyjiMhFuIRV30toA==",
         "dependencies": {
           "Argon": "0.13.0",
           "DiffEngine": "12.4.0",
