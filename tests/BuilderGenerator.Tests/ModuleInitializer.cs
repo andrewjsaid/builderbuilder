@@ -24,34 +24,8 @@ public static class ModuleInitializer
         SetupDiffTool();
     }
 
-    private static void SetupDiffTool()
-    {
-        static string TargetLeftArguments(string temp, string target)
-        {
-            var tempTitle = Path.GetFileName(temp);
-            var targetTitle = Path.GetFileName(target);
-            return $"/u /ignoreeol /wl /e \"{target}\" \"{temp}\" /dl \"{targetTitle}\" /dr \"{tempTitle}\"";
-        }
-
-        static string TargetRightArguments(string temp, string target)
-        {
-            var tempTitle = Path.GetFileName(temp);
-            var targetTitle = Path.GetFileName(target);
-            return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
-        }
-
-        var launchArguments = new LaunchArguments(
-            Left: TargetLeftArguments,
-            Right: TargetRightArguments);
-
-        _ = DiffTools.AddTool(
-            name: "MyTool",
-            autoRefresh: true,
-            isMdi: false,
-            supportsText: true,
-            requiresTarget: true,
-            binaryExtensions: new[]
-            {
+    private static readonly string[] s_binaryExtensions =
+            [
                 "bmp",
                 "cut",
                 "dds",
@@ -101,7 +75,35 @@ public static class ModuleInitializer
                 "webp",
                 "xbm",
                 "xpm"
-            },
+            ];
+
+    private static void SetupDiffTool()
+    {
+        static string TargetLeftArguments(string temp, string target)
+        {
+            var tempTitle = Path.GetFileName(temp);
+            var targetTitle = Path.GetFileName(target);
+            return $"/u /ignoreeol /wl /e \"{target}\" \"{temp}\" /dl \"{targetTitle}\" /dr \"{tempTitle}\"";
+        }
+
+        static string TargetRightArguments(string temp, string target)
+        {
+            var tempTitle = Path.GetFileName(temp);
+            var targetTitle = Path.GetFileName(target);
+            return $"/u /ignoreeol /wl /e \"{temp}\" \"{target}\" /dl \"{tempTitle}\" /dr \"{targetTitle}\"";
+        }
+
+        var launchArguments = new LaunchArguments(
+            Left: TargetLeftArguments,
+            Right: TargetRightArguments);
+
+        _ = DiffTools.AddTool(
+            name: "MyTool",
+            autoRefresh: true,
+            isMdi: false,
+            supportsText: true,
+            requiresTarget: true,
+            binaryExtensions: s_binaryExtensions,
             osSupport: new OsSupport(
                 Windows: new OsSettings(
                     @"D:\Apps\WinMerge\WinMergeU.exe",
