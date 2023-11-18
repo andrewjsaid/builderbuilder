@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net7.0": {
+    "net8.0": {
       "IDisposableAnalyzers": {
         "type": "Direct",
         "requested": "[4.0.7, )",
