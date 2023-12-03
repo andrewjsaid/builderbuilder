@@ -483,9 +483,6 @@ dotnet_diagnostic.RCS0041.severity = suggestion
 # RCS0042: Put auto-accessors on a single line
 dotnet_diagnostic.RCS0042.severity = suggestion
 
-# RCS0043: Format accessor's braces on a single line when expression is on single line
-dotnet_diagnostic.RCS0043.severity = suggestion
-
 # RCS0046: Use spaces instead of tab
 dotnet_diagnostic.RCS0046.severity = suggestion
 
@@ -531,9 +528,6 @@ dotnet_diagnostic.RCS1015.severity = suggestion
 
 # RCS1031: Remove unnecessary braces
 dotnet_diagnostic.RCS1031.severity = suggestion
-
-# RCS1040: Remove empty 'else' clause
-dotnet_diagnostic.RCS1040.severity = suggestion
 
 # RCS1051: Parenthesize condition of conditional expression
 roslynator_conditional_operator_condition_parentheses_style = omit_when_condition_is_single_token
