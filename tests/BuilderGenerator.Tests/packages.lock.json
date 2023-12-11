@@ -62,13 +62,13 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[22.7.1, )",
-        "resolved": "22.7.1",
-        "contentHash": "qkRAjXP8I/r7ZP6LFA7D8JpeXuIpseyFCC45srHk/pW4eGNgQEKPn95XGyX1Ihsf13CEqCGcsa6MTusRTgXAfA==",
+        "requested": "[22.8.0, )",
+        "resolved": "22.8.0",
+        "contentHash": "1/hDWvlamn2ZfTQh8T446QIsHraKd14WnzSmao/TactVb0eW8fL4BJZ4+fhLuZBzsHueGST8/ehl8d2wujg0WA==",
         "dependencies": {
           "EmptyFiles": "5.0.0",
           "NUnit": "4.0.1",
-          "Verify": "22.7.1"
+          "Verify": "22.8.0"
         }
       },
       "Verify.SourceGenerators": {
@@ -83,8 +83,8 @@
       },
       "Argon": {
         "type": "Transitive",
-        "resolved": "0.13.0",
-        "contentHash": "KTbzEEvCC6QX0eEO6C49WBeHdkGT0Hq1EeCk7gd0GhTK+fMpRr8DvmDaqDFK58Fvvwo0dx7K5NhFUexXv+aVuQ=="
+        "resolved": "0.14.0",
+        "contentHash": "W7l7aiIjmykydCTVWghKSiYgeLNW9rXX85ltdrJqsenEkG70dKtqqrvWbB1CCl8guivbhWPd6N6uALPjPShpAA=="
       },
       "DiffEngine": {
         "type": "Transitive",
@@ -187,10 +187,10 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "22.7.1",
-        "contentHash": "hqsjAKWlAMhKQt68acsC8KoVvTDXwdUWoq3F8jvxOMj7QOUiT7WoGY3u/BY80oHaZo1/YwTx0JWicOOEkECNcw==",
+        "resolved": "22.8.0",
+        "contentHash": "rrkSHfULhs0/t/HqXWbh7TyUF72GcdprffgBdH3noed6j0ivmi8GdZiTHNlpWAAxsJKjBDJQ/ZG7HSA49FAFlw==",
         "dependencies": {
-          "Argon": "0.13.0",
+          "Argon": "0.14.0",
           "DiffEngine": "13.0.2",
           "EmptyFiles": "5.0.0",
           "SimpleInfoName": "2.2.0",
