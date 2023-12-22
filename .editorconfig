@@ -165,6 +165,9 @@ dotnet_diagnostic.IDE0082.severity = warning
 
 csharp_style_prefer_utf8_string_literals = true
 
+# Use collection expression for stackalloc
+dotnet_diagnostic.IDE0302.severity = suggestion
+
 # Null-checking preferences
 # https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/null-checking-preferences
 csharp_style_throw_expression = true
