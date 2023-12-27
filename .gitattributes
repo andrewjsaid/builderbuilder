@@ -20,3 +20,7 @@ Dockerfile text
 # Fixes syntax highlighting on GitHub to allow comments
 .devcontainer.json linguist-language=JSON-with-Comments
 devcontainer.json linguist-language=JSON-with-Comments
+
+*.gitattributes linguist-language=gitattributes
+*.gitattributes linguist-detectable=true
+*.gitattributes linguist-documentation=false
