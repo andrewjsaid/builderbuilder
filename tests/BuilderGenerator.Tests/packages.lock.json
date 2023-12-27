@@ -62,13 +62,13 @@
       },
       "Verify.NUnit": {
         "type": "Direct",
-        "requested": "[22.10.2, )",
-        "resolved": "22.10.2",
-        "contentHash": "Khq8yb6D4GpNN47spAWu4tOYsRyjOIxyUPQJm2s+Ogbnuwn5LZxSJnlCtyV1M4G3NGyGg7+cRxBZ8sYxGFxHVw==",
+        "requested": "[22.11.0, )",
+        "resolved": "22.11.0",
+        "contentHash": "AnJEMrgo5Rg4GEMEmnx75GpFDKhqp2K8/AQZSLx3WjKBgmrMyQNVhO7u28P8OkSdO+NHOA/eGgs3Sk6y93Jgvw==",
         "dependencies": {
-          "EmptyFiles": "5.1.0",
+          "EmptyFiles": "6.3.0",
           "NUnit": "4.0.1",
-          "Verify": "22.10.2"
+          "Verify": "22.11.0"
         }
       },
       "Verify.SourceGenerators": {
@@ -88,17 +88,17 @@
       },
       "DiffEngine": {
         "type": "Transitive",
-        "resolved": "14.1.0",
-        "contentHash": "wcFCiPc+vEI3HlmUbAWnfwgr3wQ32Fpm3Lh/RffZWhg74U9nlwyQP4aCSkVnBGNvJjCEUp3vRA8Wbj9vIi1+YA==",
+        "resolved": "15.0.1",
+        "contentHash": "AHILqUiXf1TWwdFuNjttE9QAvqbhtObykiut2wx0Ha6RCNtX2ZwalyAiOuC0buAhF+Nn3812tpOxzjpEhNWCjg==",
         "dependencies": {
-          "EmptyFiles": "5.1.0",
+          "EmptyFiles": "6.3.0",
           "System.Management": "6.0.2"
         }
       },
       "EmptyFiles": {
         "type": "Transitive",
-        "resolved": "5.1.0",
-        "contentHash": "xxIBfDosw57+lgcEEqk0TVUoObade60QSljjHQrTXzajBeMiHm9XNNE4yUFywU+1tytQVCloAmsMDftYKECPXA=="
+        "resolved": "6.3.0",
+        "contentHash": "obXKMB7ZmXrVFp6NGoJgQ9Nk/+fqZdL7dO+oRGqrfrbkQQHUzH+0g3xGw1b8BdVGIk1/md+/Lpp7cP0Bd9ZAfQ=="
       },
       "Microsoft.CodeAnalysis.Common": {
         "type": "Transitive",
@@ -187,12 +187,12 @@
       },
       "Verify": {
         "type": "Transitive",
-        "resolved": "22.10.2",
-        "contentHash": "HDIen+5B8qjMpanS2DvefhywsMTlCL+UMM8aoOW0XonFZCrxDsryHsHmqW34aHeMAi4Rm8Xhyjdmv4FQP/zjaw==",
+        "resolved": "22.11.0",
+        "contentHash": "BdvviiFyMffZVAd2VTKVEDBEysHbfKAYD6ZppYbpCPbS8c5f4Ge+TpG/L2r8Txu0iirg+2VXp6khtz87zwNerQ==",
         "dependencies": {
           "Argon": "0.14.0",
-          "DiffEngine": "14.1.0",
-          "EmptyFiles": "5.1.0",
+          "DiffEngine": "15.0.1",
+          "EmptyFiles": "6.3.0",
           "SimpleInfoName": "2.2.0",
           "System.IO.Hashing": "8.0.0"
         }
